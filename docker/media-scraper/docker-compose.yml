@@ -1,0 +1,236 @@
+# ############################################################## #
+# MEDIA SCRAPER STACK                                            #
+# Contains services for downloading and managing media           #
+# ############################################################## #
+
+
+services:
+
+  vpn:
+    container_name: media-scraper-temp-vpn
+    image: dperson/openvpn-client:latest
+    cap_add:
+      - net_admin # required to modify network interfaces
+    restart: unless-stopped
+    volumes:
+      - /dev/net:/dev/net:z # tun device
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/vpn:/vpn # OpenVPN configuration
+    security_opt:
+      - label:disable
+    ports:
+      - 10888:8888 # QBitTorrent
+      - 18112:8112 # Deluge
+      - 18221:8221 # Storm
+      - 19117:9117 # Jackett
+      - 16789:6789 # NZBGET
+      - 19696:9696 # Prowlarr
+      - 18989:8989 # Sonarr
+      - 17878:7878 # Radarr
+      - 16767:6767 # Bazarr
+      - 18686:8686 # Lidarr
+      - 10011:80 # Speed test
+    command: '-f "" -r 192.168.1.0/24' # enable firewall and route local network traffic
+
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: media-scraper-temp-qbittorrent
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+      - WEBUI_PORT=8888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/qbittorrent:/config
+      - ${DOCKER_BASE_DIR}/downloads:/downloads
+      - ${MEDIA_DIR}/downloads:/downloads/completed
+    # ports:
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    restart: unless-stopped
+      
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: media-scraper-temp-prowlarr
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/prowlarr:/config
+    restart: unless-stopped
+
+
+  jackett:
+    container_name: media-scraper-temp-jackett
+    image: linuxserver/jackett:latest
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/jackett:/config
+      - ${DOCKER_BASE_DIR}/downloads/torrent-blackhole:/downloads # place where to put .torrent files for manual download
+      
+
+  nzbget:
+    container_name: media-scraper-temp-nzbget
+    image: linuxserver/nzbget:latest
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/nzbget:/config
+      - ${DOCKER_BASE_DIR}/downloads:/downloads
+      - ${MEDIA_DIR}/downloads:/downloads/completed
+
+
+  sonarr:
+    container_name: media-scraper-temp-sonarr
+    image: linuxserver/sonarr:latest
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/sonarr:/config
+      - ${MEDIA_DIR}/downloads:/downloads
+      - ${MEDIA_DIR}/tv:/tv
+
+
+  radarr:
+    container_name: media-scraper-temp-radarr
+    image: linuxserver/radarr:latest
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/sonarr:/config
+      - ${MEDIA_DIR}/downloads:/downloads
+      - ${MEDIA_DIR}/movies/mix:/movies
+
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: media-scraper-temp-lidarr
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/lidarr:/config
+      - ${MEDIA_DIR}/downloads:/downloads
+      - ${MEDIA_DIR}/music:/music
+    restart: unless-stopped
+
+
+  bazarr:
+    container_name: media-scraper-temp-bazarr
+    image: linuxserver/bazarr
+    restart: unless-stopped
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK_SET=022 #optional
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/bazarr:/config
+      - ${MEDIA_DIR}/movies/mix:/movies
+      - ${MEDIA_DIR}/tv:/tv
+
+
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: media-scraper-temp-librespeed-vpn
+    depends_on:
+      - vpn
+    network_mode: service:vpn
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PASSWORD=PASSWORD
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_BASE_DIR}/config/speedtest/vpn:/config
+    restart: unless-stopped
+
+
+  # deluge:
+  #   container_name: media-scraper-temp-deluge
+  #   image: linuxserver/deluge:latest
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - vpn
+  #   network_mode: service:vpn 
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - ${DOCKER_BASE_DIR}/config/deluge:/config
+  #     - ${DOCKER_BASE_DIR}/downloads:/downloads
+  #     - ${DOCKER_VOLUME_BASE_DIR}/Media/downloads:/downloads/completed
+
+
+  # storm:
+  #   image: ghcr.io/relvacode/storm
+  #   container_name: media-scraper-temp-storm
+  #   depends_on:
+  #     - vpn
+  #   network_mode: service:vpn
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - PASSWORD=PASSWORD
+  #     - DELUGE_RPC_HOSTNAME=localhost
+  #     - DELUGE_RPC_PORT=58846
+  #     - DELUGE_RPC_VERSION=v2
+  #     - DELUGE_RPC_USERNAME=${DELUGE_DAEMON_USER}
+  #     - DELUGE_RPC_PASSWORD=${DELUGE_DAEMON_PASSWORD}
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - ${DOCKER_BASE_DIR}/config/storm:/config
+  #   restart: unless-stopped

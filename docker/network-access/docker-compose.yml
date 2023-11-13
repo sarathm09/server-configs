@@ -1,0 +1,13 @@
+services:
+
+  cloudflare:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflare-tunnel
+    network_mode: host
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_ACCESS_TOKEN_SNORLAX_ADMIN}
+    environment:
+      - PUID=1000
+      - PGID=1000
+    env_file:
+      - ../env/access-tokens.env
+    restart: unless-stopped

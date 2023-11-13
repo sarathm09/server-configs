@@ -1,0 +1,37 @@
+# ############################################ #
+# ADMIN STACK                                  #
+# Contains services for admin/mgmt purposes    #
+# ############################################ #
+
+
+services:
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    restart: always
+    container_name: watchtower
+    command: --cleanup
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - /etc/localtime:/etc/localtime:ro
+
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: always
+    volumes:
+      - ${DOCKER_BASE_DIR}/config/homarr:/app/data/configs
+      - ${DOCKER_BASE_DIR}/config/homarr/icons:/app/public/icons
+    ports:
+      - 10000:7575
+
+
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:latest
+    restart: always
+    volumes:
+      - ${DOCKER_BASE_DIR}/config/uptime-kuma:/app/data
+    ports:
+      - 10001:3001
