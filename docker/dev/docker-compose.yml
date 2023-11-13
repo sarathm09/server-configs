@@ -15,8 +15,10 @@ services:
       - TZ=${TZ}
       # - PROXY_DOMAIN=code-server.my.domain #optional
       - DEFAULT_WORKSPACE=/volume2/dev/workspace
+    build:
+      context: .
     env_file:
-      - stack.env
+      - ../stack.env
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKER_VOLUME_BASE_DIR}/config/code-server:/config
