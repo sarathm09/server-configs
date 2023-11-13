@@ -1,0 +1,20 @@
+
+services:
+
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${TZ}
+      # - PROXY_DOMAIN=code-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/volume2/dev/workspace
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_VOLUME_BASE_DIR}/config/code-server:/config
+      - ${DOCKER_VOLUME_BASE_DIR}:/volume2
+      - ${DOCKER_BASE_DIR}:/volume1
+    ports:
+      - 18443:8443
+    restart: unless-stopped
