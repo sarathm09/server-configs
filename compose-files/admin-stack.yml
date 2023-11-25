@@ -38,7 +38,7 @@ services:
     volumes:
       - ${CONFIG_BASE_DIR}/uptime-kuma:/app/data
     ports:
-      - 10000:3001
+      - 10001:3001
 
 
 networks:
