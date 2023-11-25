@@ -21,8 +21,8 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     restart: always
     volumes:
-      - ${DOCKER_BASE_DIR}/config/homarr:/app/data/configs
-      - ${DOCKER_BASE_DIR}/config/homarr/icons:/app/public/icons
+      - ${CONFIG_BASE_DIR}/homarr:/app/data/configs
+      - ${CONFIG_BASE_DIR}/homarr/icons:/app/public/icons
     ports:
       - 10000:7575
 
@@ -32,6 +32,10 @@ services:
     image: louislam/uptime-kuma:latest
     restart: always
     volumes:
-      - ${DOCKER_BASE_DIR}/config/uptime-kuma:/app/data
+      - ${CONFIG_BASE_DIR}/uptime-kuma:/app/data
     ports:
-      - 10001:3001
+      - 10000:3001
+
+
+networks:
+  snorlax:
