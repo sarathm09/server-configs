@@ -36,6 +36,7 @@ services:
     env_file:
       - ./stack.env
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${CONFIG_BASE_DIR}/uptime-kuma:/app/data
     ports:
       - 10001:3001
