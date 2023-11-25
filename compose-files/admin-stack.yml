@@ -43,3 +43,4 @@ services:
 
 networks:
   snorlax:
+    driver: bridge
