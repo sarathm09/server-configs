@@ -1,0 +1,163 @@
+# ############################################################################ #
+# WORKSHOP - Development Tools Stack                                          #
+# Contains VS Code Server, Portainer, Jenkins, and development utilities      #
+# Ports: 10300-10399                                                          #
+# ############################################################################ #
+
+services:
+    code-server:
+        image: lscr.io/linuxserver/code-server:latest
+        container_name: code-server
+        restart: unless-stopped
+        ports:
+            - '10300:8443'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - PASSWORD=${CODE_SERVER_PASSWORD}
+            - SUDO_PASSWORD=${CODE_SERVER_SUDO_PASSWORD}
+            - DEFAULT_WORKSPACE=/workspace
+        volumes:
+            - ${CONFIG_BASE}/code-server:/config
+            - ${DATA_BASE}/code-server/workspace:/workspace
+            - ${DATA_BASE}/code-server/projects:/projects
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.code-internal.rule=Host(`code.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.code-internal.entrypoints=web'
+            - 'traefik.http.routers.code-external.rule=Host(`code-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.code-external.entrypoints=websecure'
+            - 'traefik.http.routers.code-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.code-external.middlewares=authelia@docker'
+            - 'traefik.http.services.code.loadbalancer.server.port=8443'
+        networks:
+            - proxy
+            - default
+
+    portainer:
+        image: portainer/portainer-ce:latest
+        container_name: portainer
+        restart: unless-stopped
+        ports:
+            - '10301:9000'
+            - '10302:8000'
+        environment:
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/portainer:/data
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.docker-internal.rule=Host(`docker.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.docker-internal.entrypoints=web'
+            - 'traefik.http.routers.docker-external.rule=Host(`docker-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.docker-external.entrypoints=websecure'
+            - 'traefik.http.routers.docker-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.docker-external.middlewares=authelia@docker'
+            - 'traefik.http.services.docker.loadbalancer.server.port=9000'
+        networks:
+            - proxy
+            - default
+
+    jenkins:
+        image: jenkins/jenkins:lts-jdk17
+        container_name: jenkins
+        restart: unless-stopped
+        ports:
+            - '10303:8080'
+            - '10304:50000'
+        environment:
+            - JENKINS_OPTS=--httpPort=8080
+            - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/jenkins:/var/jenkins_home
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/localtime:/etc/localtime:ro
+        user: root # Needed for Docker socket access
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.jenkins-internal.rule=Host(`jenkins.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.jenkins-internal.entrypoints=web'
+            - 'traefik.http.routers.jenkins-external.rule=Host(`jenkins-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.jenkins-external.entrypoints=websecure'
+            - 'traefik.http.routers.jenkins-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.jenkins-external.middlewares=authelia@docker'
+            - 'traefik.http.services.jenkins.loadbalancer.server.port=8080'
+        networks:
+            - proxy
+            - default
+
+    # # GitOps with ArgoCD
+    # argocd-server:
+    #     image: quay.io/argoproj/argocd:latest
+    #     container_name: argocd-server
+    #     restart: unless-stopped
+    #     ports:
+    #         - '10305:8080'
+    #         - '10306:8443'
+    #     environment:
+    #         - TZ=${TZ}
+    #         - ARGOCD_SERVER_INSECURE=true
+    #     volumes:
+    #         - ${CONFIG_BASE}/argocd:/home/argocd
+    #         - /etc/localtime:/etc/localtime:ro
+    #     command:
+    #         - argocd-server
+    #         - --staticassets
+    #         - /shared/app
+    #         - --insecure
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.gitops-internal.rule=Host(`gitops.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.gitops-internal.entrypoints=web'
+    #         - 'traefik.http.routers.gitops-external.rule=Host(`gitops-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.gitops-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.gitops-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.gitops-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.gitops.loadbalancer.server.port=8080'
+    #     networks:
+    #         - proxy
+    #         - default
+
+    # # Git server (Gitea)
+    # gitea:
+    #     image: gitea/gitea:latest
+    #     container_name: gitea
+    #     restart: unless-stopped
+    #     ports:
+    #         - '10307:3000'
+    #         - '10308:22'
+    #     environment:
+    #         - USER_UID=${PUID}
+    #         - USER_GID=${PGID}
+    #         - TZ=${TZ}
+    #         - GITEA__database__DB_TYPE=sqlite3
+    #         - GITEA__security__INSTALL_LOCK=true
+    #         - GITEA__security__SECRET_KEY=${GITEA_SECRET_KEY}
+    #     volumes:
+    #         - ${CONFIG_BASE}/gitea:/data
+    #         - /etc/localtime:/etc/localtime:ro
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.git-internal.rule=Host(`git.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.git-internal.entrypoints=web'
+    #         - 'traefik.http.routers.git-external.rule=Host(`git-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.git-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.git-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.services.git.loadbalancer.server.port=3000'
+    #     networks:
+    #         - proxy
+    #         - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+    proxy:
+        name: ${SERVER_NAME}-proxy
+        external: true

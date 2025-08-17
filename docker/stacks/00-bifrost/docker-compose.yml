@@ -1,0 +1,55 @@
+# ############################################################################ #
+# BIFROST - Network Gateway Stack                                             #
+# Contains Traefik reverse proxy and Cloudflare tunnel services               #
+# Ports: 10000-10099                                                          #
+# ############################################################################ #
+
+services:
+    traefik:
+        image: traefik:v3.1
+        container_name: traefik
+        restart: unless-stopped
+        ports:
+            - '80:80'
+            - '443:443'
+            - '10000:8080' # Traefik dashboard
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ${CONFIG_BASE}/traefik:/etc/traefik:ro
+            - ${DATA_BASE}/traefik/acme:/acme
+            - ${DATA_BASE}/traefik/logs:/tmp/logs
+        environment:
+            - CF_API_EMAIL=${CF_API_EMAIL}
+            - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.traefik-internal.rule=Host(`traefik.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.traefik-internal.entrypoints=web'
+            - 'traefik.http.routers.traefik-internal.service=api@internal'
+            - 'traefik.http.routers.traefik-external.rule=Host(`traefik-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.traefik-external.entrypoints=websecure'
+            - 'traefik.http.routers.traefik-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.traefik-external.middlewares=authelia@docker'
+        networks:
+            - proxy
+            - default
+
+    cloudflare-tunnel:
+        image: cloudflare/cloudflared:latest
+        container_name: cloudflare-tunnel
+        restart: unless-stopped
+        environment:
+            - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+        command: tunnel --no-autoupdate run
+        networks:
+            - proxy
+        depends_on:
+            - traefik
+
+networks:
+    proxy:
+        name: '${SERVER_NAME}-proxy'
+        external: true
+    default:
+        name: '${SERVER_NAME}-network'
+        external: true

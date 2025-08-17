@@ -1,0 +1,197 @@
+# ############################################################################ #
+# FORTRESS - Security & DNS Stack                                             #
+# Contains Pi-hole, Authelia, and security services                           #
+# Ports: 10500-10599                                                          #
+# ############################################################################ #
+
+services:
+    # DNS and Ad-blocking
+    pihole:
+        image: pihole/pihole:latest
+        container_name: pihole
+        restart: unless-stopped
+        ports:
+            - '5353:53/tcp'
+            - '5353:53/udp'
+            - '10500:80'
+        environment:
+            - TZ=${TZ}
+            - WEBPASSWORD=${PIHOLE_PASSWORD}
+            - ServerIP=${SERVER_IP}
+            - DNS1=1.1.1.1
+            - DNS2=8.8.8.8
+            - VIRTUAL_HOST=dns.${SERVER_NAME}.${INTERNAL_DOMAIN}
+            - PIHOLE_DNS_=1.1.1.1;8.8.8.8
+            - DNSSEC=true
+            - CONDITIONAL_FORWARDING=true
+            - CONDITIONAL_FORWARDING_IP=${SERVER_IP}
+            - CONDITIONAL_FORWARDING_DOMAIN=${INTERNAL_DOMAIN}
+            - CONDITIONAL_FORWARDING_REVERSE=local
+        volumes:
+            - ${CONFIG_BASE}/pihole/etc:/etc/pihole
+            - ${CONFIG_BASE}/pihole/dnsmasq:/etc/dnsmasq.d
+            - /etc/localtime:/etc/localtime:ro
+        cap_add:
+            - NET_ADMIN
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.dns-internal.rule=Host(`dns.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.dns-internal.entrypoints=web'
+            - 'traefik.http.services.dns.loadbalancer.server.port=80'
+            - 'monitoring=pihole'
+        healthcheck:
+            test: ['CMD-SHELL', 'dig @127.0.0.1 google.com || exit 1']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+        networks:
+            - proxy
+            - default
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: '10m'
+                max-file: '3'
+
+    # Authentication and authorization
+    authelia:
+        image: authelia/authelia:latest
+        container_name: authelia
+        restart: unless-stopped
+        ports:
+            - '10501:9091'
+        environment:
+            - TZ=${TZ}
+            - AUTHELIA_JWT_SECRET=${AUTHELIA_JWT_SECRET}
+            - AUTHELIA_SESSION_SECRET=${AUTHELIA_SESSION_SECRET}
+            - AUTHELIA_STORAGE_ENCRYPTION_KEY=${AUTHELIA_STORAGE_KEY}
+            - SERVER_NAME=${SERVER_NAME}
+            - DOMAIN=${DOMAIN}
+        volumes:
+            - ${CONFIG_BASE}/authelia:/config
+            - ${CONFIG_BASE}/authelia/logs:/config/logs
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.auth-internal.rule=Host(`auth.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.auth-internal.entrypoints=web'
+            - 'traefik.http.routers.auth-external.rule=Host(`auth-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.auth-external.entrypoints=websecure'
+            - 'traefik.http.routers.auth-external.tls.certresolver=cloudflare'
+            - 'traefik.http.services.auth.loadbalancer.server.port=9091'
+            - 'traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://auth-lugia.t90cloud.xyz'
+            - 'traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true'
+            - 'traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+            - 'monitoring=authelia'
+        healthcheck:
+            test: ['CMD-SHELL', 'wget --no-verbose --tries=1 --spider http://localhost:9091/api/health || exit 1']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+        networks:
+            - proxy
+            - default
+        depends_on:
+            authelia-redis:
+                condition: service_healthy
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: '10m'
+                max-file: '3'
+
+    # Redis for Authelia session storage
+    authelia-redis:
+        image: redis:alpine
+        container_name: authelia-redis
+        restart: unless-stopped
+        ports:
+            - '10502:6379'
+        environment:
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/authelia/redis.conf:/usr/local/etc/redis/redis.conf
+            - ${DATA_BASE}/authelia/redis:/data
+            - /etc/localtime:/etc/localtime:ro
+        command: redis-server /usr/local/etc/redis/redis.conf
+        labels:
+            - 'monitoring=redis'
+        healthcheck:
+            test: ['CMD-SHELL', 'redis-cli ping | grep PONG']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+        networks:
+            - default
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: '10m'
+                max-file: '3'
+
+    # CrowdSec removed for simplicity - can be re-added later if needed
+
+    # Tailscale for VPN access
+    tailscale:
+        image: tailscale/tailscale:latest
+        container_name: tailscale
+        restart: unless-stopped
+        environment:
+            - TZ=${TZ}
+            - TS_AUTHKEY=${TAILSCALE_AUTH_KEY}
+            - TS_HOSTNAME=${SERVER_NAME}
+            - TS_STATE_DIR=/var/lib/tailscale
+        volumes:
+            - ${CONFIG_BASE}/tailscale:/var/lib/tailscale
+            - /dev/net/tun:/dev/net/tun
+            - /etc/localtime:/etc/localtime:ro
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+        sysctls:
+            - net.ipv4.ip_forward=1
+            - net.ipv6.conf.all.forwarding=1
+        networks:
+            - default
+
+    # # Wireguard VPN alternative
+    # wireguard:
+    #   image: lscr.io/linuxserver/wireguard:latest
+    #   container_name: wireguard
+    #   restart: unless-stopped
+    #   ports:
+    #     - "51820:51820/udp"
+    #   environment:
+    #     - PUID=${PUID}
+    #     - PGID=${PGID}
+    #     - TZ=${TZ}
+    #     - SERVERURL=${SERVER_NAME}.${DOMAIN}
+    #     - SERVERPORT=51820
+    #     - PEERS=5
+    #     - PEERDNS=auto
+    #     - INTERNAL_SUBNET=10.13.13.0
+    #   volumes:
+    #     - ${CONFIG_BASE}/wireguard:/config
+    #     - /lib/modules:/lib/modules
+    #     - /etc/localtime:/etc/localtime:ro
+    #   cap_add:
+    #     - NET_ADMIN
+    #     - SYS_MODULE
+    #   sysctls:
+    #     - net.ipv4.conf.all.src_valid_mark=1
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.wireguard-internal.rule=Host(`vpn.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.wireguard-internal.entrypoints=web"
+    #     - "traefik.http.services.wireguard.loadbalancer.server.port=80"
+    #   networks:
+    #     - proxy
+    #     - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+    proxy:
+        name: ${SERVER_NAME}-proxy
+        external: true

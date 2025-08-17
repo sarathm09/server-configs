@@ -1,0 +1,4 @@
+
+code-{$DOMAIN} {
+  reverse_proxy code-server:11000
+}

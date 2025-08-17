@@ -1,0 +1,117 @@
+# ############################################################################ #
+# WATCHTOWER - System Guardians Stack                                         #
+# Contains Watchtower, Uptime Kuma, and Homarr dashboard                      #
+# Ports: 10100-10199                                                          #
+# ############################################################################ #
+
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=86400  # 24 hours
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+      - TZ=${TZ}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - default
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "10101:3001"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_BASE}/uptime-kuma:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime-internal.rule=Host(`uptime.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.uptime-internal.entrypoints=web"
+      - "traefik.http.routers.uptime-external.rule=Host(`uptime-${SERVER_NAME}.${DOMAIN}`)"
+      - "traefik.http.routers.uptime-external.entrypoints=websecure"
+      - "traefik.http.routers.uptime-external.tls.certresolver=cloudflare"
+      - "traefik.http.routers.uptime-external.middlewares=authelia@docker"
+      - "traefik.http.services.uptime.loadbalancer.server.port=3001"
+    networks:
+      - proxy
+      - default
+
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    restart: unless-stopped
+    ports:
+      - "10102:7575"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_BASE}/homarr/configs:/app/data/configs
+      - ${CONFIG_BASE}/homarr/icons:/app/public/icons
+      - ${CONFIG_BASE}/homarr/data:/data
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.home-internal.rule=Host(`home.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.home-internal.entrypoints=web"
+      - "traefik.http.routers.home-external.rule=Host(`home-${SERVER_NAME}.${DOMAIN}`)"
+      - "traefik.http.routers.home-external.entrypoints=web"
+      # - "traefik.http.routers.home-external.tls.certresolver=cloudflare"
+      # - "traefik.http.routers.home-external.middlewares=authelia@docker"
+      - "traefik.http.services.home.loadbalancer.server.port=7575"
+    networks:
+      - proxy
+      - default
+
+  # Optional: System resource monitoring
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    restart: unless-stopped
+    ports:
+      - "10103:19999"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_BASE}/netdata:/etc/netdata
+      - ${DATA_BASE}/netdata:/var/lib/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.netdata-internal.rule=Host(`netdata.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.netdata-internal.entrypoints=web"
+      - "traefik.http.services.netdata.loadbalancer.server.port=19999"
+    networks:
+      - proxy
+      - default
+
+networks:
+  default:
+    name: ${SERVER_NAME}-network
+    external: true
+  proxy:
+    name: ${SERVER_NAME}-proxy
+    external: true

@@ -1,0 +1,164 @@
+# ############################################################################ #
+# AUTOMATION - Workflow & Productivity Stack                                  #
+# Contains n8n, workflow automation, and productivity tools                   #
+# Ports: 10400-10499                                                          #
+# ############################################################################ #
+
+services:
+    n8n:
+        image: docker.n8n.io/n8nio/n8n
+        restart: always
+        container_name: n8n
+        ports:
+            - '10400:5678'
+        environment:
+            - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+            - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+            - N8N_PORT=5678
+            - N8N_PROTOCOL=https
+            - N8N_RUNNERS_ENABLED=true
+            - NODE_ENV=production
+            - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
+            - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+            - TZ=${GENERIC_TIMEZONE}
+        volumes:
+            - ${CONFIG_BASE}/n8n:/home/node/.n8n
+            - ${DATA_BASE}/n8n:/files
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.n8n-internal.rule=Host(`n8n.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.n8n-internal.entrypoints=web'
+            - 'traefik.http.routers.n8n-external.rule=Host(`n8n-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.n8n-external.entrypoints=websecure'
+            - 'traefik.http.routers.n8n-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.n8n-external.middlewares=authelia@docker'
+            - 'traefik.http.services.n8n.loadbalancer.server.port=5678'
+        networks:
+            - proxy
+            - default
+
+        # # CasaOS for simple application management
+        # casaos:
+        #   image: casaos/casaos:latest
+        #   container_name: casaos
+        #   restart: unless-stopped
+        #   ports:
+        #     - '10401:80'
+        #   environment:
+        #     - PUID=${PUID}
+        #     - PGID=${PGID}
+        #     - TZ=${TZ}
+        #   volumes:
+        #     - ${CONFIG_BASE}/casaos:/casaos/config
+        #     - ${DATA_BASE}/casaos:/casaos/data
+        #     - /var/run/docker.sock:/var/run/docker.sock
+        #     - /etc/localtime:/etc/localtime:ro
+        #   privileged: true
+        #   labels:
+        #     - 'traefik.enable=true'
+        #     - 'traefik.http.routers.casa-internal.rule=Host(`casa.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+        #     - 'traefik.http.routers.casa-internal.entrypoints=web'
+        #     - 'traefik.http.routers.casa-external.rule=Host(`casa-${SERVER_NAME}.${DOMAIN}`)'
+        #     - 'traefik.http.routers.casa-external.entrypoints=websecure'
+        #     - 'traefik.http.routers.casa-external.tls.certresolver=cloudflare'
+        #     - 'traefik.http.routers.casa-external.middlewares=authelia@docker'
+        #     - 'traefik.http.services.casa.loadbalancer.server.port=80'
+        #   networks:
+        #     - proxy
+        #     - default
+
+        # # File browser for easy file management
+        # filebrowser:
+        #   image: filebrowser/filebrowser:latest
+        #   container_name: filebrowser
+        #   restart: unless-stopped
+        #   ports:
+        #     - '10402:80'
+        #   environment:
+        #     - PUID=${PUID}
+        #     - PGID=${PGID}
+        #     - TZ=${TZ}
+        #   volumes:
+        #     - ${CONFIG_BASE}/filebrowser/database.db:/database.db
+        #     - ${CONFIG_BASE}/filebrowser/settings.json:/config/settings.json
+        #     - ${DATA_BASE}:/srv/data
+        #     - ${DOWNLOADS_BASE}:/srv/downloads
+        #     - /etc/localtime:/etc/localtime:ro
+        #   labels:
+        #     - 'traefik.enable=true'
+        #     - 'traefik.http.routers.files-internal.rule=Host(`files.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+        #     - 'traefik.http.routers.files-internal.entrypoints=web'
+        #     - 'traefik.http.routers.files-external.rule=Host(`files-${SERVER_NAME}.${DOMAIN}`)'
+        #     - 'traefik.http.routers.files-external.entrypoints=websecure'
+        #     - 'traefik.http.routers.files-external.tls.certresolver=cloudflare'
+        #     - 'traefik.http.routers.files-external.middlewares=authelia@docker'
+        #     - 'traefik.http.services.files.loadbalancer.server.port=80'
+        #   networks:
+        #     - proxy
+        #     - default
+
+        # # Document collaboration (ONLYOFFICE)
+        # onlyoffice:
+        #   image: onlyoffice/documentserver:latest
+        #   container_name: onlyoffice
+        #   restart: unless-stopped
+        #   ports:
+        #     - "10403:80"
+        #   environment:
+        #     - TZ=${TZ}
+        #     - JWT_ENABLED=true
+        #     - JWT_SECRET=${ONLYOFFICE_JWT_SECRET}
+        #   volumes:
+        #     - ${CONFIG_BASE}/onlyoffice/logs:/var/log/onlyoffice
+        #     - ${DATA_BASE}/onlyoffice/data:/var/www/onlyoffice/Data
+        #     - ${DATA_BASE}/onlyoffice/lib:/var/lib/onlyoffice
+        #     - /etc/localtime:/etc/localtime:ro
+        #   labels:
+        #     - "traefik.enable=true"
+        #     - "traefik.http.routers.office-internal.rule=Host(`office.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+        #     - "traefik.http.routers.office-internal.entrypoints=web"
+        #     - "traefik.http.routers.office-external.rule=Host(`office-${SERVER_NAME}.${DOMAIN}`)"
+        #     - "traefik.http.routers.office-external.entrypoints=websecure"
+        #     - "traefik.http.routers.office-external.tls.certresolver=cloudflare"
+        #     - "traefik.http.routers.office-external.middlewares=authelia@docker"
+        #     - "traefik.http.services.office.loadbalancer.server.port=80"
+        #   networks:
+        #     - proxy
+        #     - default
+
+        # # Password manager (Vaultwarden)
+        # vaultwarden:
+        #   image: vaultwarden/server:latest
+        #   container_name: vaultwarden
+        #   restart: unless-stopped
+        #   ports:
+        #     - "10404:80"
+        #   environment:
+        #     - TZ=${TZ}
+        #     - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+        #     - WEBSOCKET_ENABLED=true
+        #     - SIGNUPS_ALLOWED=false
+        #     - DOMAIN=https://vault-${SERVER_NAME}.${DOMAIN}
+        #   volumes:
+        #     - ${CONFIG_BASE}/vaultwarden:/data
+        #     - /etc/localtime:/etc/localtime:ro
+        #   labels:
+        #     - "traefik.enable=true"
+        #     - "traefik.http.routers.vault-internal.rule=Host(`vault.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+        #     - "traefik.http.routers.vault-internal.entrypoints=web"
+        #     - "traefik.http.routers.vault-external.rule=Host(`vault-${SERVER_NAME}.${DOMAIN}`)"
+        #     - "traefik.http.routers.vault-external.entrypoints=websecure"
+        #     - "traefik.http.routers.vault-external.tls.certresolver=cloudflare"
+        #     - "traefik.http.services.vault.loadbalancer.server.port=80"
+        #   networks:
+        #     - proxy
+        #     - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+    proxy:
+        name: ${SERVER_NAME}-proxy
+        external: true

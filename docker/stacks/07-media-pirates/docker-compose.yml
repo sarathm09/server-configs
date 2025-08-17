@@ -1,0 +1,254 @@
+# ############################################################################ #
+# MEDIA PIRATES - Content Management Stack                                    #
+# Contains Sonarr, Radarr, Lidarr, qBittorrent for content automation         #
+# Ports: 10700-10799                                                          #
+# ############################################################################ #
+
+services:
+    # TV Show management
+    sonarr:
+        image: lscr.io/linuxserver/sonarr:latest
+        container_name: sonarr
+        restart: unless-stopped
+        ports:
+            - '8989:8989'
+            - '10700:8989'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/sonarr:/config
+            - ${MEDIA_BASE}/TV Shows:/tv
+            - ${DOWNLOADS_BASE}:/downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.tv-internal.rule=Host(`tv.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.tv-internal.entrypoints=web'
+            - 'traefik.http.routers.tv-external.rule=Host(`tv-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.tv-external.entrypoints=websecure'
+            - 'traefik.http.routers.tv-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.tv-external.middlewares=authelia@docker'
+            - 'traefik.http.services.tv.loadbalancer.server.port=8989'
+        networks:
+            - proxy
+            - default
+
+    # Movie management
+    radarr:
+        image: lscr.io/linuxserver/radarr:latest
+        container_name: radarr
+        restart: unless-stopped
+        ports:
+            - '7878:7878'
+            - '10701:7878'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/radarr:/config
+            - ${MEDIA_BASE}/Movies:/movies
+            - ${DOWNLOADS_BASE}:/downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.movies-internal.rule=Host(`movies.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.movies-internal.entrypoints=web'
+            - 'traefik.http.routers.movies-external.rule=Host(`movies-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.movies-external.entrypoints=websecure'
+            - 'traefik.http.routers.movies-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.movies-external.middlewares=authelia@docker'
+            - 'traefik.http.services.movies.loadbalancer.server.port=7878'
+        networks:
+            - proxy
+            - default
+
+    # Music management
+    lidarr:
+        image: lscr.io/linuxserver/lidarr:latest
+        container_name: lidarr
+        restart: unless-stopped
+        ports:
+            - '8686:8686'
+            - '10702:8686'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/lidarr:/config
+            - ${MEDIA_BASE}/Music:/music
+            - ${DOWNLOADS_BASE}:/downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.music-internal.rule=Host(`music.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.music-internal.entrypoints=web'
+            - 'traefik.http.routers.music-external.rule=Host(`music-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.music-external.entrypoints=websecure'
+            - 'traefik.http.routers.music-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.music-external.middlewares=authelia@docker'
+            - 'traefik.http.services.music.loadbalancer.server.port=8686'
+        networks:
+            - proxy
+            - default
+
+    # Subtitle management
+    bazarr:
+        image: lscr.io/linuxserver/bazarr:latest
+        container_name: bazarr
+        restart: unless-stopped
+        ports:
+            - '6767:6767'
+            - '10703:6767'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/bazarr:/config
+            - ${MEDIA_BASE}/Movies:/movies
+            - ${MEDIA_BASE}/TV Shows:/tv
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.subtitles-internal.rule=Host(`subtitles.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.subtitles-internal.entrypoints=web'
+            - 'traefik.http.routers.subtitles-external.rule=Host(`subtitles-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.subtitles-external.entrypoints=websecure'
+            - 'traefik.http.routers.subtitles-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.subtitles-external.middlewares=authelia@docker'
+            - 'traefik.http.services.subtitles.loadbalancer.server.port=6767'
+        networks:
+            - proxy
+            - default
+
+    # Indexer management
+    prowlarr:
+        image: lscr.io/linuxserver/prowlarr:latest
+        container_name: prowlarr
+        restart: unless-stopped
+        ports:
+            - '9696:9696'
+            - '10704:9696'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/prowlarr:/config
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.indexer-internal.rule=Host(`indexer.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.indexer-internal.entrypoints=web'
+            - 'traefik.http.routers.indexer-external.rule=Host(`indexer-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.indexer-external.entrypoints=websecure'
+            - 'traefik.http.routers.indexer-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.indexer-external.middlewares=authelia@docker'
+            - 'traefik.http.services.indexer.loadbalancer.server.port=9696'
+        networks:
+            - proxy
+            - default
+
+    # Torrent client
+    qbittorrent:
+        image: lscr.io/linuxserver/qbittorrent:latest
+        container_name: qbittorrent
+        restart: unless-stopped
+        ports:
+            - '8080:8080'
+            - '6881:6881'
+            - '6881:6881/udp'
+            - '10705:8080'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - WEBUI_PORT=8080
+        volumes:
+            - ${CONFIG_BASE}/qbittorrent:/config
+            - ${DOWNLOADS_BASE}:/downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.torrent-internal.rule=Host(`torrent.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.torrent-internal.entrypoints=web'
+            - 'traefik.http.routers.torrent-external.rule=Host(`torrent-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.torrent-external.entrypoints=websecure'
+            - 'traefik.http.routers.torrent-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.torrent-external.middlewares=authelia@docker'
+            - 'traefik.http.services.torrent.loadbalancer.server.port=8080'
+        networks:
+            - proxy
+            - default
+
+    # Usenet client
+    sabnzbd:
+        image: lscr.io/linuxserver/sabnzbd:latest
+        container_name: sabnzbd
+        restart: unless-stopped
+        ports:
+            - '8088:8080'
+            - '10706:8080'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/sabnzbd:/config
+            - ${DOWNLOADS_BASE}:/downloads
+            - ${DOWNLOADS_BASE}/incomplete:/incomplete-downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.sabnzbd-internal.rule=Host(`sabnzbd.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.sabnzbd-internal.entrypoints=web'
+            - 'traefik.http.routers.sabnzbd-external.rule=Host(`sabnzbd-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.sabnzbd-external.entrypoints=websecure'
+            - 'traefik.http.routers.sabnzbd-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.sabnzbd-external.middlewares=authelia@docker'
+            - 'traefik.http.services.sabnzbd.loadbalancer.server.port=8080'
+        networks:
+            - proxy
+            - default
+
+    # Alternative indexer
+    jackett:
+        image: lscr.io/linuxserver/jackett:latest
+        container_name: jackett
+        restart: unless-stopped
+        ports:
+            - '9117:9117'
+            - '10707:9117'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - AUTO_UPDATE=true
+        volumes:
+            - ${CONFIG_BASE}/jackett:/config
+            - ${DOWNLOADS_BASE}:/downloads
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.jackett-internal.rule=Host(`jackett.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.jackett-internal.entrypoints=web'
+            - 'traefik.http.routers.jackett-external.rule=Host(`jackett-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.jackett-external.entrypoints=websecure'
+            - 'traefik.http.routers.jackett-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.jackett-external.middlewares=authelia@docker'
+            - 'traefik.http.services.jackett.loadbalancer.server.port=9117'
+        networks:
+            - proxy
+            - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+  proxy:
+    name: ${SERVER_NAME}-proxy
+    external: true

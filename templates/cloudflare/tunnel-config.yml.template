@@ -1,0 +1,76 @@
+# Cloudflare Tunnel Configuration Template
+# This file is auto-generated based on server config
+tunnel: ${CLOUDFLARE_TUNNEL_ID}
+credentials-file: /etc/cloudflared/tunnel-credentials.json
+
+# Ingress rules for external services
+ingress:
+  # Traefik dashboard (admin only)
+  - hostname: traefik-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: traefik.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Main dashboard/homepage
+  - hostname: home-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: home.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Monitoring services
+  - hostname: grafana-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: grafana.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  - hostname: uptime-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: uptime.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Development tools
+  - hostname: code-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: code.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  - hostname: docker-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: docker.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # AI/Chat services
+  - hostname: chat-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: chat.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  - hostname: ollama-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: ollama.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Media services (for NAS servers)
+  # - hostname: plex-${SERVER_NAME}.${DOMAIN}
+  #   service: http://traefik:80
+  #   originRequest:
+  #     httpHostHeader: plex.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # - hostname: jellyfin-${SERVER_NAME}.${DOMAIN}
+  #   service: http://traefik:80
+  #   originRequest:
+  #     httpHostHeader: jellyfin.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # - hostname: requests-${SERVER_NAME}.${DOMAIN}
+  #   service: http://traefik:80
+  #   originRequest:
+  #     httpHostHeader: requests.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Test/Hello service
+  - hostname: hello-${SERVER_NAME}.${DOMAIN}
+    service: http://traefik:80
+    originRequest:
+      httpHostHeader: hello.${SERVER_NAME}.${INTERNAL_DOMAIN}
+
+  # Catch-all rule (required)
+  - service: http_status:404

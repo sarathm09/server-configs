@@ -1,0 +1,315 @@
+# ############################################################################ #
+# OBSERVATORY - Monitoring & Metrics Stack                                    #
+# Contains Grafana, Prometheus, Loki, and related monitoring tools            #
+# Ports: 10200-10299                                                          #
+# ############################################################################ #
+
+services:
+    # prometheus:
+    #   image: prom/prometheus:latest
+    #   container_name: prometheus
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10201:9090"
+    #   environment:
+    #     - TZ=${TZ}
+    #   volumes:
+    #     - ${CONFIG_BASE}/prometheus:/etc/prometheus
+    #     - ${DATA_BASE}/prometheus:/prometheus
+    #     - /etc/localtime:/etc/localtime:ro
+    #   command:
+    #     - '--config.file=/etc/prometheus/prometheus.yml'
+    #     - '--storage.tsdb.path=/prometheus'
+    #     - '--web.console.libraries=/etc/prometheus/console_libraries'
+    #     - '--web.console.templates=/etc/prometheus/consoles'
+    #     - '--storage.tsdb.retention.time=30d'
+    #     - '--web.enable-lifecycle'
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.prometheus-internal.rule=Host(`prometheus.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.prometheus-internal.entrypoints=web"
+    #     - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+    #   networks:
+    #     - proxy
+    #     - default
+
+    # grafana:
+    #   image: grafana/grafana:latest
+    #   container_name: grafana
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10200:3000"
+    #   user: "472:472"
+    #   environment:
+    #     - TZ=${TZ}
+    #     - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+    #     - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    #     - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-worldmap-panel
+    #   volumes:
+    #     - ${CONFIG_BASE}/grafana:/etc/grafana
+    #     - ${DATA_BASE}/grafana:/var/lib/grafana
+    #     - ${CONFIG_BASE}/grafana/provisioning:/etc/grafana/provisioning
+    #     - /etc/localtime:/etc/localtime:ro
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.grafana-internal.rule=Host(`grafana.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.grafana-internal.entrypoints=web"
+    #     - "traefik.http.routers.grafana-external.rule=Host(`grafana-${SERVER_NAME}.${DOMAIN}`)"
+    #     - "traefik.http.routers.grafana-external.entrypoints=websecure"
+    #     - "traefik.http.routers.grafana-external.tls.certresolver=cloudflare"
+    #     - "traefik.http.routers.grafana-external.middlewares=authelia@docker"
+    #     - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    #   networks:
+    #     - proxy
+    #     - default
+    #   depends_on:
+    #     - prometheus
+
+    # loki:
+    #   image: grafana/loki:latest
+    #   container_name: loki
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10202:3100"
+    #   environment:
+    #     - TZ=${TZ}
+    #     - SERVER_NAME=${SERVER_NAME}
+    #   volumes:
+    #     - ${CONFIG_BASE}/loki:/etc/loki
+    #     - ${DATA_BASE}/loki:/loki
+    #     - /etc/localtime:/etc/localtime:ro
+    #   command: -config.file=/etc/loki/loki-config.yml
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.loki-internal.rule=Host(`loki.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.loki-internal.entrypoints=web"
+    #     - "traefik.http.services.loki.loadbalancer.server.port=3100"
+    #     - "logging=loki"
+    #   healthcheck:
+    #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+    #   networks:
+    #     - proxy
+    #     - default
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # promtail:
+    #   image: grafana/promtail:latest
+    #   container_name: promtail
+    #   restart: unless-stopped
+    #   environment:
+    #     - TZ=${TZ}
+    #     - SERVER_NAME=${SERVER_NAME}
+    #   volumes:
+    #     - ${CONFIG_BASE}/promtail:/etc/promtail
+    #     - /var/log:/var/log:ro
+    #     - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    #     - ${DATA_BASE}/traefik/logs:/var/log/traefik:ro
+    #     - ${CONFIG_BASE}/authelia/logs:/var/log/authelia:ro
+    #     - /etc/localtime:/etc/localtime:ro
+    #     - /run/systemd/journal:/run/systemd/journal:ro
+    #     - /var/log/journal:/var/log/journal:ro
+    #   command: -config.file=/etc/promtail/promtail-config.yml
+    #   labels:
+    #     - "logging=promtail"
+    #   healthcheck:
+    #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9080/ready || exit 1"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+    #   networks:
+    #     - default
+    #   depends_on:
+    #     loki:
+    #       condition: service_healthy
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # # Node exporter for system metrics
+    # node-exporter:
+    #   image: prom/node-exporter:latest
+    #   container_name: node-exporter
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10203:9100"
+    #   environment:
+    #     - TZ=${TZ}
+    #   volumes:
+    #     - /proc:/host/proc:ro
+    #     - /sys:/host/sys:ro
+    #     - /:/rootfs:ro
+    #     - /etc/localtime:/etc/localtime:ro
+    #   command:
+    #     - '--path.procfs=/host/proc'
+    #     - '--path.rootfs=/rootfs'
+    #     - '--path.sysfs=/host/sys'
+    #     - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    #   networks:
+    #     - default
+
+    # # cAdvisor for container metrics
+    # cadvisor:
+    #   image: gcr.io/cadvisor/cadvisor:latest
+    #   container_name: cadvisor
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10204:8080"
+    #   environment:
+    #     - TZ=${TZ}
+    #   volumes:
+    #     - /:/rootfs:ro
+    #     - /var/run:/var/run:ro
+    #     - /sys:/sys:ro
+    #     - /var/lib/docker/:/var/lib/docker:ro
+    #     - /dev/disk/:/dev/disk:ro
+    #     - /etc/localtime:/etc/localtime:ro
+    #   privileged: true
+    #   devices:
+    #     - /dev/kmsg
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.cadvisor-internal.rule=Host(`cadvisor.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.cadvisor-internal.entrypoints=web"
+    #     - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
+    #     - "monitoring=cadvisor"
+    #   healthcheck:
+    #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/healthz || exit 1"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+    #   networks:
+    #     - proxy
+    #     - default
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # # Pi-hole exporter for Pi-hole metrics
+    # pihole-exporter:
+    #   image: ekofr/pihole-exporter:latest
+    #   container_name: pihole-exporter
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10205:9617"
+    #   environment:
+    #     - TZ=${TZ}
+    #     - PIHOLE_HOSTNAME=pihole
+    #     - PIHOLE_PORT=80
+    #     - INTERVAL=30s
+    #   labels:
+    #     - "monitoring=pihole-exporter"
+    #   depends_on:
+    #     - prometheus
+    #   networks:
+    #     - default
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # # Blackbox exporter for external monitoring
+    # blackbox-exporter:
+    #   image: prom/blackbox-exporter:latest
+    #   container_name: blackbox-exporter
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10206:9115"
+    #   environment:
+    #     - TZ=${TZ}
+    #   volumes:
+    #     - ${CONFIG_BASE}/blackbox:/etc/blackbox_exporter
+    #     - /etc/localtime:/etc/localtime:ro
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.blackbox-internal.rule=Host(`blackbox.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.blackbox-internal.entrypoints=web"
+    #     - "traefik.http.services.blackbox.loadbalancer.server.port=9115"
+    #     - "monitoring=blackbox"
+    #   healthcheck:
+    #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9115/-/healthy || exit 1"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+    #   networks:
+    #     - proxy
+    #     - default
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # # Alertmanager for alerts
+    # alertmanager:
+    #   image: prom/alertmanager:latest
+    #   container_name: alertmanager
+    #   restart: unless-stopped
+    #   ports:
+    #     - "10207:9093"
+    #   environment:
+    #     - TZ=${TZ}
+    #   volumes:
+    #     - ${CONFIG_BASE}/alertmanager:/etc/alertmanager
+    #     - ${DATA_BASE}/alertmanager:/alertmanager
+    #     - /etc/localtime:/etc/localtime:ro
+    #   command:
+    #     - '--config.file=/etc/alertmanager/alertmanager.yml'
+    #     - '--storage.path=/alertmanager'
+    #     - '--web.external-url=http://alertmanager.${SERVER_NAME}.${INTERNAL_DOMAIN}'
+    #     - '--cluster.advertise-address=0.0.0.0:9093'
+    #   labels:
+    #     - "traefik.enable=true"
+    #     - "traefik.http.routers.alerts-internal.rule=Host(`alerts.${SERVER_NAME}.${INTERNAL_DOMAIN}`)"
+    #     - "traefik.http.routers.alerts-internal.entrypoints=web"
+    #     - "traefik.http.services.alerts.loadbalancer.server.port=9093"
+    #     - "monitoring=alertmanager"
+    #   healthcheck:
+    #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9093/-/healthy || exit 1"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 3
+    #   networks:
+    #     - proxy
+    #     - default
+    #   logging:
+    #     driver: "json-file"
+    #     options:
+    #       max-size: "10m"
+    #       max-file: "3"
+
+    # Network connectivity test service
+    hello:
+        image: nginx:alpine
+        container_name: hello-world
+        restart: unless-stopped
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.hello-internal.rule=Host(`hello.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.hello-internal.entrypoints=web'
+            - 'traefik.http.routers.hello-external.rule=Host(`hello-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.hello-external.entrypoints=websecure'
+            - 'traefik.http.routers.hello-external.tls.certresolver=cloudflare'
+        volumes:
+            - ./config/hello/index.html:/usr/share/nginx/html/index.html:ro
+        networks:
+            - proxy
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+    proxy:
+        name: ${SERVER_NAME}-proxy
+        external: true

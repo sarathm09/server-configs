@@ -1,0 +1,195 @@
+# ############################################################################ #
+# MEDIA NEXUS - Media Services Stack                                          #
+# Contains Plex, Jellyfin, Overseerr for media streaming and requests         #
+# Ports: 10600-10699                                                          #
+# ############################################################################ #
+
+services:
+    # Plex Media Server
+    plex:
+        image: lscr.io/linuxserver/plex:latest
+        container_name: plex
+        restart: unless-stopped
+        ports:
+            - '32400:32400'
+            - '10600:32400'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - VERSION=docker
+            - PLEX_CLAIM=${PLEX_CLAIM_TOKEN}
+        volumes:
+            - ${CONFIG_BASE}/plex:/config
+            - ${MEDIA_BASE}/TV Shows:/tv
+            - ${MEDIA_BASE}/Movies:/movies
+            - ${MEDIA_BASE}/Music:/music
+            - /etc/localtime:/etc/localtime:ro
+        devices:
+            - /dev/dri:/dev/dri # Hardware transcoding
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.plex-internal.rule=Host(`plex.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.plex-internal.entrypoints=web'
+            - 'traefik.http.routers.plex-external.rule=Host(`plex-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.plex-external.entrypoints=websecure'
+            - 'traefik.http.routers.plex-external.tls.certresolver=cloudflare'
+            - 'traefik.http.services.plex.loadbalancer.server.port=32400'
+        networks:
+            - proxy
+            - default
+
+    # Jellyfin Media Server (Alternative to Plex)
+    jellyfin:
+        image: lscr.io/linuxserver/jellyfin:latest
+        container_name: jellyfin
+        restart: unless-stopped
+        ports:
+            - '8096:8096'
+            - '10601:8096'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - JELLYFIN_PublishedServerUrl=https://jellyfin-${SERVER_NAME}.${DOMAIN}
+        volumes:
+            - ${CONFIG_BASE}/jellyfin:/config
+            - ${MEDIA_BASE}/TV Shows:/data/tvshows
+            - ${MEDIA_BASE}/Movies:/data/movies
+            - ${MEDIA_BASE}/Music:/data/music
+            - /etc/localtime:/etc/localtime:ro
+        devices:
+            - /dev/dri:/dev/dri # Hardware transcoding
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.jellyfin-internal.rule=Host(`jellyfin.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.jellyfin-internal.entrypoints=web'
+            - 'traefik.http.routers.jellyfin-external.rule=Host(`jellyfin-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.jellyfin-external.entrypoints=websecure'
+            - 'traefik.http.routers.jellyfin-external.tls.certresolver=cloudflare'
+            - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
+        networks:
+            - proxy
+            - default
+
+    # Overseerr for media requests
+    overseerr:
+        image: lscr.io/linuxserver/overseerr:latest
+        container_name: overseerr
+        restart: unless-stopped
+        ports:
+            - '5055:5055'
+            - '10602:5055'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/overseerr:/config
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.requests-internal.rule=Host(`requests.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.requests-internal.entrypoints=web'
+            - 'traefik.http.routers.requests-external.rule=Host(`requests-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.requests-external.entrypoints=websecure'
+            - 'traefik.http.routers.requests-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.requests-external.middlewares=authelia@docker'
+            - 'traefik.http.services.requests.loadbalancer.server.port=5055'
+        networks:
+            - proxy
+            - default
+
+    # Tautulli for Plex monitoring
+    tautulli:
+        image: lscr.io/linuxserver/tautulli:latest
+        container_name: tautulli
+        restart: unless-stopped
+        ports:
+            - '8181:8181'
+            - '10603:8181'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - ${CONFIG_BASE}/tautulli:/config
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.tautulli-internal.rule=Host(`tautulli.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.tautulli-internal.entrypoints=web'
+            - 'traefik.http.routers.tautulli-external.rule=Host(`tautulli-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.tautulli-external.entrypoints=websecure'
+            - 'traefik.http.routers.tautulli-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.tautulli-external.middlewares=authelia@docker'
+            - 'traefik.http.services.tautulli.loadbalancer.server.port=8181'
+        networks:
+            - proxy
+            - default
+
+    # Komga for comics/manga
+    komga:
+        image: gotson/komga:latest
+        container_name: komga
+        restart: unless-stopped
+        ports:
+            - '25600:25600'
+            - '10604:25600'
+        environment:
+            - TZ=${TZ}
+            - SERVER_PORT=25600
+        volumes:
+            - ${CONFIG_BASE}/komga:/config
+            - ${MEDIA_BASE}/Comics:/data/comics
+            - ${MEDIA_BASE}/Manga:/data/manga
+            - /etc/localtime:/etc/localtime:ro
+        user: '${PUID}:${PGID}'
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.komga-internal.rule=Host(`komga.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.komga-internal.entrypoints=web'
+            - 'traefik.http.routers.komga-external.rule=Host(`komga-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.komga-external.entrypoints=websecure'
+            - 'traefik.http.routers.komga-external.tls.certresolver=cloudflare'
+            - 'traefik.http.services.komga.loadbalancer.server.port=25600'
+        networks:
+            - proxy
+            - default
+
+    # Audiobookshelf for audiobooks and podcasts
+    audiobookshelf:
+        image: ghcr.io/advplyr/audiobookshelf:latest
+        container_name: audiobookshelf
+        restart: unless-stopped
+        ports:
+            - '13378:80'
+            - '10605:80'
+        environment:
+            - TZ=${TZ}
+            - AUDIOBOOKSHELF_UID=${PUID}
+            - AUDIOBOOKSHELF_GID=${PGID}
+        volumes:
+            - ${CONFIG_BASE}/audiobookshelf:/config
+            - ${MEDIA_BASE}/Audiobooks:/audiobooks
+            - ${MEDIA_BASE}/Podcasts:/podcasts
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.audiobooks-internal.rule=Host(`audiobooks.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.audiobooks-internal.entrypoints=web'
+            - 'traefik.http.routers.audiobooks-external.rule=Host(`audiobooks-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.audiobooks-external.entrypoints=websecure'
+            - 'traefik.http.routers.audiobooks-external.tls.certresolver=cloudflare'
+            - 'traefik.http.services.audiobooks.loadbalancer.server.port=80'
+        networks:
+            - proxy
+            - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+  proxy:
+    name: ${SERVER_NAME}-proxy
+    external: true

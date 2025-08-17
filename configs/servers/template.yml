@@ -1,0 +1,58 @@
+# Server configuration template
+# Copy this file and customize for new servers
+
+server:
+  name: "{SERVER_NAME}"           # e.g., laptop, workstation, pi
+  type: ubuntu-server             # ubuntu-server, nas, raspberry-pi
+  domain: "{DOMAIN}"              # e.g., t90cloud.xyz, mydomain.com
+  internal_domain: "{SERVER_NAME}.local"
+
+# Volume mappings (adjust based on server type)
+volumes:
+  config_base: "/opt/docker/config"     # For ubuntu-server
+  data_base: "/opt/docker/data"
+  downloads_base: "/opt/docker/downloads"
+  media_base: "/mnt/media"
+  
+  # NAS example:
+  # config_base: "/volume1/docker/config"
+  # data_base: "/volume2/docker/data"
+  # downloads_base: "/volume2/downloads"
+  # media_base: "/volume2/Media"
+
+# Common environment variables
+environment:
+  TZ: "Asia/Kolkata"                    # Adjust timezone
+  PUID: "1000"                          # User ID (1003 for Synology)
+  PGID: "1000"                          # Group ID (100 for Synology)
+
+# Cloudflare tunnel configuration
+cloudflare:
+  tunnel_name: "{SERVER_NAME}-tunnel"
+  tunnel_token: ${CLOUDFLARE_TUNNEL_TOKEN}
+
+# Stack configuration - customize based on server purpose
+stacks:
+  enabled:
+    - 00-bifrost      # Network gateway (always needed)
+    - 01-watchtower   # System monitoring (recommended)
+    - 02-observatory  # Metrics and monitoring
+    - 05-fortress     # Security (Pi-hole, DNS)
+    # Add other stacks based on server role:
+    # - 03-workshop   # Development tools
+    # - 04-automation # Workflow tools
+    # - 06-media-nexus # Media services (NAS)
+    # - 07-media-pirates # Content management (NAS)
+    # - 08-intelligence # AI/LLM services
+  disabled: []
+
+# Services exposed via Cloudflare tunnel (customize list)
+external_services:
+  - home            # Dashboard always useful
+  - grafana         # Monitoring access
+  # Add services you want to access externally
+
+# Services requiring Cloudflare Access authentication
+auth_required:
+  - grafana
+  # Add services that need protection

@@ -1,0 +1,220 @@
+# ############################################################################ #
+# INTELLIGENCE - AI/LLM Services Stack                                        #
+# Contains Ollama, Open WebUI, LocalAI, and other AI tools                    #
+# Ports: 10800-10899                                                          #
+# ############################################################################ #
+
+services:
+    # Ollama for local LLMs
+    ollama:
+        image: ollama/ollama:latest
+        container_name: ollama
+        restart: unless-stopped
+        ports:
+            - '11434:11434'
+            - '10800:11434'
+        environment:
+            - TZ=${TZ}
+            - OLLAMA_HOST=0.0.0.0
+        volumes:
+            - ${CONFIG_BASE}/ollama:/root/.ollama
+            - ${DATA_BASE}/ollama:/data
+            - /etc/localtime:/etc/localtime:ro
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.ollama-internal.rule=Host(`ollama.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.ollama-internal.entrypoints=web'
+            - 'traefik.http.routers.ollama-external.rule=Host(`ollama-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.ollama-external.entrypoints=websecure'
+            - 'traefik.http.routers.ollama-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.ollama-external.middlewares=authelia@docker'
+            - 'traefik.http.services.ollama.loadbalancer.server.port=11434'
+        networks:
+            - proxy
+            - default
+
+    # # Open WebUI for Ollama
+    # open-webui:
+    #     image: ghcr.io/open-webui/open-webui:main
+    #     container_name: open-webui
+    #     restart: unless-stopped
+    #     ports:
+    #         - '3000:8080'
+    #         - '10801:8080'
+    #     environment:
+    #         - TZ=${TZ}
+    #         - OLLAMA_BASE_URL=http://ollama:11434
+    #         - WEBUI_SECRET_KEY=${OPEN_WEBUI_SECRET_KEY}
+    #         - ENABLE_SIGNUP=${OPEN_WEBUI_ENABLE_SIGNUP:-false}
+    #     volumes:
+    #         - ${CONFIG_BASE}/open-webui:/app/backend/data
+    #         - /etc/localtime:/etc/localtime:ro
+    #     depends_on:
+    #         - ollama
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.chat-internal.rule=Host(`chat.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.chat-internal.entrypoints=web'
+    #         - 'traefik.http.routers.chat-external.rule=Host(`chat-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.chat-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.chat-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.chat-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.chat.loadbalancer.server.port=8080'
+    #     networks:
+    #         - proxy
+    #         - default
+
+    # # LocalAI - OpenAI API compatible
+    # localai:
+    #     image: quay.io/go-skynet/local-ai:latest
+    #     container_name: localai
+    #     restart: unless-stopped
+    #     ports:
+    #         - '8080:8080'
+    #         - '10802:8080'
+    #     environment:
+    #         - TZ=${TZ}
+    #         - DEBUG=true
+    #         - MODELS_PATH=/models
+    #         - THREADS=4
+    #     volumes:
+    #         - ${CONFIG_BASE}/localai/models:/models
+    #         - ${CONFIG_BASE}/localai:/usr/share/local-ai
+    #         - /etc/localtime:/etc/localtime:ro
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.localai-internal.rule=Host(`localai.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.localai-internal.entrypoints=web'
+    #         - 'traefik.http.routers.localai-external.rule=Host(`localai-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.localai-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.localai-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.localai-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.localai.loadbalancer.server.port=8080'
+    #     networks:
+    #         - proxy
+    #         - default
+
+    # # Text-to-Speech with GPT-SoVITS
+    # gpt-sovits:
+    #     image: breakstring/gpt-sovits:latest
+    #     container_name: gpt-sovits
+    #     restart: unless-stopped
+    #     ports:
+    #         - '9880:9880'
+    #         - '9870:9870'
+    #         - '10803:9880'
+    #     environment:
+    #         - TZ=${TZ}
+    #     volumes:
+    #         - ${CONFIG_BASE}/gpt-sovits:/workspace/GPT-SoVITS
+    #         - ${DATA_BASE}/gpt-sovits/models:/workspace/GPT-SoVITS/pretrained_models
+    #         - ${DATA_BASE}/gpt-sovits/output:/workspace/GPT-SoVITS/output
+    #         - /etc/localtime:/etc/localtime:ro
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.tts-internal.rule=Host(`tts.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.tts-internal.entrypoints=web'
+    #         - 'traefik.http.routers.tts-external.rule=Host(`tts-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.tts-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.tts-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.tts-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.tts.loadbalancer.server.port=9880'
+    #     networks:
+    #         - proxy
+    #         - default
+
+    # # Stable Diffusion WebUI
+    # stable-diffusion-webui:
+    #     image: ghcr.io/abetlen/llama-cpp-python:latest
+    #     container_name: stable-diffusion
+    #     restart: unless-stopped
+    #     ports:
+    #         - '7860:7860'
+    #         - '10804:7860'
+    #     environment:
+    #         - TZ=${TZ}
+    #         - COMMANDLINE_ARGS=--listen --enable-insecure-extension-access
+    #     volumes:
+    #         - ${CONFIG_BASE}/stable-diffusion:/data
+    #         - ${DATA_BASE}/stable-diffusion/models:/models
+    #         - ${DATA_BASE}/stable-diffusion/outputs:/outputs
+    #         - /etc/localtime:/etc/localtime:ro
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.sd-internal.rule=Host(`sd.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.sd-internal.entrypoints=web'
+    #         - 'traefik.http.routers.sd-external.rule=Host(`sd-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.sd-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.sd-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.sd-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.sd.loadbalancer.server.port=7860'
+    #     networks:
+    #         - proxy
+    #         - default
+
+    # Jupyter Lab for AI/ML development
+    jupyterlab:
+        image: jupyter/tensorflow-notebook:latest
+        container_name: jupyterlab
+        restart: unless-stopped
+        ports:
+            - '8888:8888'
+            - '10805:8888'
+        environment:
+            - TZ=${TZ}
+            - JUPYTER_ENABLE_LAB=yes
+            - JUPYTER_TOKEN=${JUPYTER_TOKEN}
+        volumes:
+            - ${CONFIG_BASE}/jupyter:/home/jovyan/work
+            - ${DATA_BASE}/jupyter/notebooks:/home/jovyan/notebooks
+            - /etc/localtime:/etc/localtime:ro
+        user: root
+        command: start-notebook.sh --NotebookApp.token='${JUPYTER_TOKEN}' --NotebookApp.allow_root=True
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.jupyter-internal.rule=Host(`jupyter.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+            - 'traefik.http.routers.jupyter-internal.entrypoints=web'
+            - 'traefik.http.routers.jupyter-external.rule=Host(`jupyter-${SERVER_NAME}.${DOMAIN}`)'
+            - 'traefik.http.routers.jupyter-external.entrypoints=websecure'
+            - 'traefik.http.routers.jupyter-external.tls.certresolver=cloudflare'
+            - 'traefik.http.routers.jupyter-external.middlewares=authelia@docker'
+            - 'traefik.http.services.jupyter.loadbalancer.server.port=8888'
+        networks:
+            - proxy
+            - default
+
+    # # Whisper for speech-to-text
+    # whisper-asr:
+    #     image: onerahmet/openai-whisper-asr-webservice:latest
+    #     container_name: whisper-asr
+    #     restart: unless-stopped
+    #     ports:
+    #         - '9000:9000'
+    #         - '10806:9000'
+    #     environment:
+    #         - TZ=${TZ}
+    #         - ASR_MODEL=base
+    #         - ASR_ENGINE=openai_whisper
+    #     volumes:
+    #         - ${CONFIG_BASE}/whisper:/data/cache
+    #         - /etc/localtime:/etc/localtime:ro
+    #     labels:
+    #         - 'traefik.enable=true'
+    #         - 'traefik.http.routers.whisper-internal.rule=Host(`whisper.${SERVER_NAME}.${INTERNAL_DOMAIN}`)'
+    #         - 'traefik.http.routers.whisper-internal.entrypoints=web'
+    #         - 'traefik.http.routers.whisper-external.rule=Host(`whisper-${SERVER_NAME}.${DOMAIN}`)'
+    #         - 'traefik.http.routers.whisper-external.entrypoints=websecure'
+    #         - 'traefik.http.routers.whisper-external.tls.certresolver=cloudflare'
+    #         - 'traefik.http.routers.whisper-external.middlewares=authelia@docker'
+    #         - 'traefik.http.services.whisper.loadbalancer.server.port=9000'
+    #     networks:
+    #         - proxy
+    #         - default
+
+networks:
+    default:
+        name: ${SERVER_NAME}-network
+        external: true
+    proxy:
+        name: ${SERVER_NAME}-proxy
+        external: true

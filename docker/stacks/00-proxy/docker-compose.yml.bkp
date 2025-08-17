@@ -1,0 +1,99 @@
+# ############################################################################ #
+# NETWORK STACK                                                                #
+# Contains services for network tools like tunnel and reverse proxy            #
+# ############################################################################ #
+
+
+services:
+
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ${CONFIG_BASE_DIR}/caddy/data:/data
+      - ${CONFIG_BASE_DIR}/caddy/config:/config
+    environment:
+      - CLOUDFLARE_API_TOKEN=${CF_API_TOKEN}
+      - DOMAIN=${DOMAIN}
+      - EMAIL=${EMAIL}
+    networks:
+      - floo-network
+
+
+networks:
+  proxy:
+    driver: bridge
+
+
+networks:
+  floo-network:
+    external: true
+
+  
+
+
+  # npm:
+  #   image: 'jc21/nginx-proxy-manager:latest'
+  #   ports:
+  #     - 80:80
+  #     - 1443:443
+  #     - 81:81
+  #     # Add any other Stream port you want to expose
+  #     # - '21:21' # FTP
+  #   healthcheck:
+  #     test: ["CMD", "/bin/check-health"]
+  #     interval: 10s
+  #     timeout: 3s
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ${CONFIG_BASE_DIR}/nginx-proxy-manager/data:/data
+  #     - ${CONFIG_BASE_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+
+
+  # traefik:
+  #   image: traefik:latest
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   # deploy:
+  #   #   mode: replicated
+  #   #   replicas: 3
+  #   #   endpoint_mode: vip
+  #   networks: 
+  #     - snorlax
+  #   restart: always
+  #   environment:
+  #     - CF_DNS_API_TOKEN=u9f3olr9EYwClFuXLeDBdKa0w9mp19rP2aS87zFZ
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ${CONFIG_BASE_DIR}/traefik/traefic.log:/traefic.log
+  #     - ${CONFIG_BASE_DIR}/traefik/config:/config
+  #     - ${CONFIG_BASE_DIR}/traefik/data/traefik.yml:/traefik.yml:ro
+  #     - ${CONFIG_BASE_DIR}/traefik/data/config.yml:/config.yml:ro
+  #     - ${DOCKER_SSD_BASE_DIR}/common/certs:/certs
+  #   labels:      
+  #     - "traefik.enable=true"
+
+      
+  #     - "traefik.http.routers.traefik-secure.tls=true"
+  #     - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+  #     - "traefik.http.routers.traefik-secure.tls.domains[0].main=t90cloud.xyz"
+  #     - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.t90cloud.xyz"
+
+      
+  #     - "traefik.http.routers.traefik-secure.entrypoints=https"
+  #     - "traefik.http.routers.traefik-secure.rule=Host(`traefik.t90cloud.xyz`)"
+  #     - "traefik.http.services.traefik-secure.loadbalancer.server.port=8080"
+
+
+  #     - "traefik.http.routers.traefik-secure.service=api@internal"
+   
+
+
+

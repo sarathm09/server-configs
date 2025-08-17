@@ -1,0 +1,50 @@
+server:
+  name: snorlax
+  type: nas
+  domain: t90cloud.xyz
+  internal_domain: snorlax.local
+
+# Volume mappings for NAS (Synology DSM paths)
+volumes:
+  config_base: "/volume1/docker/config"
+  data_base: "/volume2/docker/data"
+  downloads_base: "/volume2/downloads"
+  media_base: "/volume2/Media"
+
+# Common environment variables
+environment:
+  TZ: "Asia/Kolkata"
+  PUID: "1003"  # Synology docker user
+  PGID: "100"   # Synology users group
+
+# Cloudflare tunnel configuration
+cloudflare:
+  tunnel_name: snorlax-tunnel
+  tunnel_token: ${CLOUDFLARE_TUNNEL_TOKEN}
+
+# Stack configuration - Media-focused NAS setup
+stacks:
+  enabled:
+    - 00-bifrost      # Network gateway
+    - 01-watchtower   # System guardians
+    - 02-observatory  # Monitoring
+    - 05-fortress     # Security and DNS
+    - 06-media-nexus  # Media services (Plex, Jellyfin, Overseerr)
+    - 07-media-pirates # Content management (Sonarr, Radarr, etc.)
+    - 08-intelligence # AI/LLM services
+  disabled:
+    - 03-workshop     # Development tools - not needed on NAS
+    - 04-automation   # Automation - handled by other servers
+
+# Services exposed via Cloudflare tunnel
+external_services:
+  - plex        # plex-snorlax.t90cloud.xyz
+  - jellyfin    # jellyfin-snorlax.t90cloud.xyz
+  - requests    # requests-snorlax.t90cloud.xyz (Overseerr)
+  - grafana     # grafana-snorlax.t90cloud.xyz
+  - home        # home-snorlax.t90cloud.xyz
+
+# Services requiring authentication (media services are public)
+auth_required:
+  - grafana
+  - requests    # Overseerr should be protected

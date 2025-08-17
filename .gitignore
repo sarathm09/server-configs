@@ -1,0 +1,66 @@
+# Secrets and sensitive files
+secrets/
+*.env
+*.env.local
+*.env.production
+*.env.staging
+
+# Age encryption keys
+.age/
+*.age
+
+# Docker volumes and data
+docker/env/
+docker/stacks/*/config/
+docker/stacks/*/data/
+docker/stacks/*/logs/
+
+# Backup directory
+to_be_deleted/
+
+# Generated configurations
+**/acme.json
+**/tunnel-credentials.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Node modules (if any)
+node_modules/
+
+# Local development overrides
+docker-compose.override.yml
+.env.override
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# Cloudflare credentials
+**/origin-key.pem
+**/origin.pem

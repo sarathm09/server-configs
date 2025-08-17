@@ -1,0 +1,52 @@
+server:
+    name: lugia
+    type: ubuntu-server
+    domain: t90cloud.xyz
+    internal_domain: lugia.local
+
+# Volume mappings for ubuntu-server type
+volumes:
+    config_base: '/opt/docker/config'
+    data_base: '/opt/docker/data'
+    downloads_base: '/opt/docker/downloads'
+    media_base: '/opt/docker/media'
+
+# Common environment variables
+environment:
+    TZ: 'Asia/Kolkata'
+    PUID: '1002'
+    PGID: '1002'
+
+# Cloudflare tunnel configuration
+cloudflare:
+    tunnel_name: lugia-tunnel
+    tunnel_token: ${CLOUDFLARE_TUNNEL_TOKEN}
+
+# Stack configuration
+stacks:
+    enabled:
+        - 00-bifrost # Network gateway (Traefik, Cloudflare)
+        - 01-watchtower # System guardians (Watchtower, Uptime, Dashboard)
+        # - 02-observatory # Monitoring (Grafana, Prometheus)
+        - 03-workshop # Development tools (VS Code, Portainer, Jenkins)
+        - 04-automation # Workflow tools (n8n, automation)
+        - 05-fortress # Security (Pi-hole, Authelia, Fail2ban)
+        - 08-intelligence # AI/LLM services (Ollama, LocalAI)
+    disabled:
+        - 06-media-nexus # Media services (Plex, Jellyfin) - NAS only
+        - 07-media-pirates # Content management (Sonarr, Radarr) - NAS only
+
+# Services exposed via Cloudflare tunnel (service-first hostname)
+external_services:
+    - grafana # grafana-lugia.t90cloud.xyz
+    - code # code-lugia.t90cloud.xyz
+    - chat # chat-lugia.t90cloud.xyz
+    - uptime # uptime-lugia.t90cloud.xyz
+    - home # home-lugia.t90cloud.xyz
+
+# Services requiring Cloudflare Access authentication
+auth_required:
+    - code
+    - grafana
+    - docker # Portainer
+    - uptime
