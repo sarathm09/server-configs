@@ -1,0 +1,622 @@
+{
+  "active": true,
+  "connections": {
+    "Execute: Fetch Latest": {
+      "main": [
+        [
+          {
+            "node": "Execute: Upload to R2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Success1": {
+      "main": [
+        [
+          {
+            "node": "Notify: Success1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify: Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Build Image": {
+      "main": [
+        [
+          {
+            "node": "Execute: Push to Docker Hub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Push to Docker Hub": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Execute: Initial Scrape": {
+      "main": [
+        [
+          {
+            "node": "Execute: Upload Base to R2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Upload Base to R2": {
+      "main": [
+        [
+          {
+            "node": "Check Success3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Success3": {
+      "main": [
+        [
+          {
+            "node": "Notify: Success3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify: Error3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Fetch and Transform History": {
+      "main": [
+        [
+          {
+            "node": "Execute: Build Image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload history",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload base",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Rates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Success": {
+      "main": [
+        [
+          {
+            "node": "Notify: Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify: Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Upload to R2": {
+      "main": [
+        [
+          {
+            "node": "Check Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Execute: Fetch Latest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Rates": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Upload base": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Upload history": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule1": {
+      "main": [
+        [
+          {
+            "node": "Execute: Fetch and Transform History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Execute: Initial Scrape",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Check Success1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-28T07:10:09.071Z",
+  "id": "6inlhoRjnQLrmqb5",
+  "isArchived": false,
+  "meta": null,
+  "name": "Centy",
+  "nodes": [
+    {
+      "parameters": {
+        "command": "cd /centy && npm run fetch-latest"
+      },
+      "name": "Execute: Fetch Latest",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        144
+      ],
+      "id": "495406f9-f3f2-49a7-bf7b-ee33c9af3ce2",
+      "notes": "Fetch latest exchange rates from all sources"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ +$json.exitCode }}",
+              "operation": "equal"
+            }
+          ]
+        }
+      },
+      "name": "Check Success1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        288,
+        720
+      ],
+      "id": "64af8c16-da19-49fb-9408-833e06e75853"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Success1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        704,
+        544
+      ],
+      "id": "c41f8564-556b-40c1-9d2c-5650adcc40aa",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Error1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        704,
+        800
+      ],
+      "id": "fe862ae8-4f6e-4c46-951f-48a72e7217e7",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'cd /home/lugia/centy/cf-mono/currency-backend && docker build -t \"sarathm09/curly-memory:latest\" .';"
+      },
+      "name": "Execute: Build Image",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        944
+      ],
+      "id": "cb8c6e33-211b-4752-9e2c-dba8ebf104db",
+      "notes": "Build Docker image with updated base data"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'cd /home/lugia/centy/cf-mono/currency-backend && docker push sarathm09/curly-memory:latest';"
+      },
+      "name": "Execute: Push to Docker Hub",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        944
+      ],
+      "id": "42387a77-57ed-41f2-bad9-55d144a91327",
+      "notes": "Push image to Docker Hub"
+    },
+    {
+      "parameters": {
+        "command": "=cd /centy && npm run initial-scrape --start-date {{ $json[\"Start date\"] ?? \"2025-11-24\" }} --end-date {{ $json[\"End date\"] ?? \"2025-12-31\" }}"
+      },
+      "name": "Execute: Initial Scrape",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        1376
+      ],
+      "id": "cd2f62c2-4a35-4bd9-aa48-9073bd8cfe0d",
+      "notes": "Scrape historical data for specified date range"
+    },
+    {
+      "parameters": {
+        "command": "/centy/scripts/cli/upload-to-r2.sh"
+      },
+      "name": "Execute: Upload Base to R2",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        1376
+      ],
+      "id": "c144199b-7360-4a2a-a020-db4ff8063c75",
+      "notes": "Upload scraped base data to R2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Trigger: Rebuild Image\"].json.success}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Check Success3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        80,
+        1376
+      ],
+      "id": "32240e49-bd13-4595-91ce-f46b24e02ec0"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Success3",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        288,
+        1264
+      ],
+      "id": "8368bdbd-9e2a-492a-96db-97ad9fdb58de",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Error3",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        288,
+        1472
+      ],
+      "id": "4ac1bde8-4289-4399-8f2f-1e48e9ff5c11",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {
+        "command": "cd /centy && npm run transform-history"
+      },
+      "name": "Execute: Fetch and Transform History",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        688
+      ],
+      "id": "d58e3a1c-269a-448f-a2ec-e65e51cd7241",
+      "notes": "Fetch latest rates and transform all historical records"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Error",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        240
+      ],
+      "id": "b45f3b63-b2d0-4194-abe8-0cc36545da4f",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {},
+      "name": "Notify: Success",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "29cc0a8d-30fa-46c2-9546-99b5cf2dd277",
+      "notes": "Replace with your notification method (email, webhook, etc.)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.exitCode == 0 }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        144
+      ],
+      "id": "9d34e356-3ea9-47cd-a29e-4ee8f8fe8c27"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'rclone sync \"/home/lugia/centy/cf-mono/currency-backend/public/rates\" \"R2:exchange-rates/rates\" --checksum --progress --stats-one-line --transfers 10 --checkers 16;';"
+      },
+      "name": "Execute: Upload to R2",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        144
+      ],
+      "id": "75c6cdc6-fa3b-4d4e-b9ae-743375e7a5e4",
+      "notes": "Upload rates to Cloudflare R2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6,
+              "triggerAtMinute": 31
+            }
+          ]
+        }
+      },
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        144
+      ],
+      "id": "48143659-bc0a-4141-bea4-c31f8c91ba74",
+      "notes": "Runs 3 times daily at 8am, 2pm, and 8pm UTC"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'rclone sync \"/home/lugia/centy/cf-mono/currency-backend/public/rates\" \"R2:exchange-rates/rates\" --checksum --progress --stats-one-line --transfers 10 --checkers 16;';\n"
+      },
+      "name": "Upload Rates",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        784
+      ],
+      "id": "b61e7a42-b3d3-42b5-84d3-3547d7f08b21",
+      "notes": "Upload rates and history to Cloudflare R2"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'rclone sync \"/home/lugia/centy/cf-mono/currency-backend/public/base\" \"R2:exchange-rates/base\" --checksum --progress --stats-one-line --transfers 10 --checkers 16;';"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        624
+      ],
+      "id": "55bc1f8c-a3ca-470d-852b-f38a4556766c",
+      "name": "Upload base"
+    },
+    {
+      "parameters": {
+        "command": "ssh -i /home/lugia/.ssh/id_ed25519.node lugia@lugia 'rclone sync \"/home/lugia/centy/cf-mono/currency-backend/public/history\" \"R2:exchange-rates/history\" --checksum --progress --stats-one-line --transfers 10 --checkers 16;';"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        480
+      ],
+      "id": "8c0eeedc-a325-4c69-b68f-3046d09d67bc",
+      "name": "Upload history"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 7,22 * * *"
+            }
+          ]
+        }
+      },
+      "name": "Schedule1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        688
+      ],
+      "id": "e835f1b8-60e7-4db6-b2b3-6486df615f1c",
+      "notes": "Runs 2 times daily at 6am and 6pm UTC"
+    },
+    {
+      "parameters": {
+        "formTitle": "Scrape Old Data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Start date",
+              "fieldType": "date"
+            },
+            {
+              "fieldLabel": "End date",
+              "fieldType": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -896,
+        1376
+      ],
+      "id": "b7afe099-3656-4ee0-b415-4b2982c71009",
+      "name": "On form submission",
+      "webhookId": "bc5ff16c-0c91-4ef4-bbcc-cc68ce1e44dd"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        96,
+        688
+      ],
+      "id": "76969340-9e05-4cf8-a14f-6d5271f088df",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "server-configs",
+  "repo_owner": "sarathm09",
+  "repo_path": "n8n_backups/lugia",
+  "settings": {
+    "executionOrder": "v0",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-28T07:10:09.077Z",
+      "createdAt": "2025-11-28T07:10:09.077Z",
+      "role": "workflow:owner",
+      "workflowId": "6inlhoRjnQLrmqb5",
+      "projectId": "sF3cJTnf4ieuCDHa"
+    }
+  ],
+  "staticData": {
+    "node:Schedule": {
+      "recurrenceRules": [
+        12
+      ]
+    },
+    "node:Schedule1": {
+      "recurrenceRules": [
+        0
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 3,
+  "updatedAt": "2025-12-04T19:36:23.000Z",
+  "versionId": "a03c0a11-635b-4b14-9f76-ba4683a42a52"
+}
