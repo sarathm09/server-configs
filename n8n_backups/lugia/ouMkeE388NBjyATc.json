@@ -1,0 +1,3365 @@
+{
+  "active": false,
+  "connections": {
+    "Cron Trigger (every 12h)": {
+      "main": [
+        [
+          {
+            "node": "Get Hacker News Top (HTTP Request)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Hacker News Top (HTTP Request)": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Send message and wait for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message and wait for response": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Delete a chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a chat message": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create Tweet": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "XML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML1": {
+      "main": [
+        [
+          {
+            "node": "Split Out3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "XML2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML2": {
+      "main": [
+        [
+          {
+            "node": "Split Out4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "XML3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML3": {
+      "main": [
+        [
+          {
+            "node": "Split Out5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out5": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "XML4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML4": {
+      "main": [
+        [
+          {
+            "node": "Split Out6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out6": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request5": {
+      "main": [
+        [
+          {
+            "node": "XML5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML5": {
+      "main": [
+        [
+          {
+            "node": "Split Out7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out7": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        []
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Split Out8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out8": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-13T14:37:38.818Z",
+  "id": "ouMkeE388NBjyATc",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Trending Tweets copy",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 0 7,10 * * *"
+            }
+          ]
+        }
+      },
+      "id": "a6daea80-ad4b-4695-a6bf-8021111ebf63",
+      "name": "Cron Trigger (every 12h)",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://hn.algolia.com/api/v1/search_by_date?query=AI%20and%20coding",
+        "options": {}
+      },
+      "id": "a30a048e-689f-4981-8c58-ec55332ed4c6",
+      "name": "Get Hacker News Top (HTTP Request)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "hits",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        432
+      ],
+      "id": "13845d1b-2945-498b-af2a-21b267dcd068",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Source Article(s):\n\n\n{{ $('Limit1').all().filter(item => item.json?.title && item.json?.url).map((item, i) => {\n\n  return `Article ${i + 1}: ${item.json.title}\\nURL: ${item.json.url}\\nCreated On: ${item.json.createdAt}\\nContent Summary: ${item.json.content}`\n\n}).join(\"\\n\\n\\n\") }}\n\n{{ $json.title }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a senior principal software engineer with strong production experience who communicates through clear, opinionated technical takes.\nYou write high-signal social media posts for engineers who value real-world systems, tradeoffs, and consequences over hype.\n\nYour audience follows AI, programming, security, system design, developer tools, infrastructure, automation, LLMs, and major tech players such as Apple, Google, Meta, Amazon, Cloudflare, Node.js, Anthropic, Claude, and the broader technology ecosystem.\n\nYou deliberately avoid neutrality. Your writing reflects the style of engineers like **ThePrimeagen and Theo**: confident, sharp, occasionally confrontational, and grounded in practical experience.\n\n---\n\n## Your writing style:\n\n* Opinionated, declarative, and technically grounded\n* Short, punchy sentences\n* Conversational but authoritative\n* No emojis\n* No em dashes\n* No hype or marketing language\n* No filler or summarization\n* Assumes a technically competent reader\n* Willing to challenge popular narratives, tooling hype, and shallow takes\n* Strong bias toward production reality, on-call experience, scalability, failure modes, and long-term maintenance\n* Humor allowed only as dry sarcasm or blunt framing\n* Captions should feel like a **hot take engineers argue about**, not an article summary\n\n---\n\n## Topic and angle selection rules (critical):\n\nWhen evaluating news, prioritize angles that:\n\n* Expose hidden tradeoffs, risks, or second-order effects\n* Call out overengineering, abstraction abuse, or hype-driven decisions\n* Question incentives behind announcements (DX theater, VC pressure, marketing optics)\n* Contrast blog-post success with production reality\n* Highlight operational pain, security implications, or ecosystem lock-in\n* Separate \"impressive demo\" from \"sustainable system\"\n* Frame the issue as something senior engineers notice immediately\n\nIf a story is boring at face value, find the **controversial or uncomfortable angle**, or deprioritize it via relevanceScore.\n\n---\n\n## Your task:\n\nGiven a list of news items (title, URL, snippet), generate platform-optimized social posts that surface the **most interesting technical take** behind each item.\n\nThink in terms of:\n\n* What breaks at scale\n* Who benefits and who pays the cost\n* What engineers will regret in 18 months\n* Why this looks good on Twitter but bad in production\n\nYou will receive multiple articles at once.\nAssign a **relevanceScore from 1 to 10**, relative across the batch:\n\n* 7+ means genuinely hot or discussion-worthy\n* 9–10 is reserved for major industry impact, ecosystem shifts, outages, security failures, or architectural inflection points\n* Controversy, disagreement, and real-world impact should increase scores\n* Duplicates are allowed\n\n---\n\n## You must:\n\n1. Identify the **strongest technical angle or hot take** for a senior engineering audience\n2. Produce **professional, high-signal posts** for:\n\n   * **X (Twitter)** → max 140 characters minus URL length\n   * **Threads** → max 400 characters minus URL length\n3. Choose the appropriate content style based on the take:\n\n   * one of: `\"caption\"`, `\"comment\"`, `\"question\"`, `\"opinion\"`, `\"risk\"`, `\"hot_take\"`\n4. Generate **2–5 relevant hashtags**, no emojis\n5. Maintain a consistent senior-engineer voice: confident, blunt, analytical, and grounded in real systems\n\n---\n\n## Output format:\n\nCRITICAL REQUIREMENT: Return a **single JSON array only**, with this exact structure.\nDO NOT include anything else, including markdown code blocks.\n\n```\n[\n  {\n    \"title\": \"string\",\n    \"url\": \"string\",\n    \"relevanceScore\": 1,\n    \"hashtags\": [\"string\"],\n    \"contentType\": \"caption|comment|question|opinion|risk|hot_take\",\n    \"captions\": {\n      \"x\": \"string\",\n      \"threads\": \"string\"\n    }\n  }\n]\n```\n\n---\n\n## Rules:\n\n* Do NOT include commentary outside the JSON\n* Do NOT use emojis or em dashes\n* Respect character limits strictly\n* Avoid summaries; readers can click the article\n* Posts must sound like they come from someone who has shipped systems, debugged outages, and been on-call\n* Encourage discussion through strong framing, not engagement bait\n"
+            }
+          ]
+        },
+        "batching": {
+          "batchSize": 1,
+          "delayBetweenBatches": 60000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        128,
+        -176
+      ],
+      "id": "bdce3b69-7f6c-41af-b1ce-4821ea6c7f2f",
+      "name": "Basic LLM Chain1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        0
+      ],
+      "id": "939c916c-977e-4482-a140-7f615d8ca852",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "z11bx2G6rIdz9Lw9",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "relevanceScore",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        -416
+      ],
+      "id": "bb29b4b5-fab9-4a1d-a931-21c36644f3aa",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        -416
+      ],
+      "id": "757f0705-26b4-4816-b34e-070989db698c",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "maxItems": 50
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        496,
+        -416
+      ],
+      "id": "6bbe670a-4e79-49b0-ad01-fa7010fbab1e",
+      "name": "Limit1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c16978f1-e55a-42c7-81c8-5365ef203c47",
+              "name": "output",
+              "value": "={{ $json.captions.x }}\n\n{{ $json.url }}\n\n{{ $json.hashtags.map(t => `#${t}`).join(\" \") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "selected",
+        "includeFields": "captions.x, captions.threads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        -128
+      ],
+      "id": "955b4011-f6a9-48fe-80e6-1547205127af",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "IhGqY5OrCRpRlEtt",
+          "mode": "list",
+          "cachedResultName": "Tech Posts",
+          "cachedResultUrl": "/projects/sF3cJTnf4ieuCDHa/datatables/IhGqY5OrCRpRlEtt"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $('Limit').item.json.output.title }}",
+            "url": "={{ $('Limit').item.json.output.url }}",
+            "xCaption": "={{ $('Limit').item.json.output.xCaption }}",
+            "threadsCaption": "={{ $('Limit').item.json.output.threadsCaption }}",
+            "hashtags": "={{ $('Limit').item.json.output.hashtags.join(\" \") }}",
+            "status": "Under Review",
+            "content": "={{ $json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "xCaption",
+              "displayName": "xCaption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "threadsCaption",
+              "displayName": "threadsCaption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "hashtags",
+              "displayName": "hashtags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "xUrl",
+              "displayName": "xUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        -176
+      ],
+      "id": "8d2138da-8767-41ba-a5c8-4db0381d65ba",
+      "name": "Insert row",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "chatId": "857042530",
+        "text": "={{ $now }}\n{{ $execution.id }}\n\n{{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        -16
+      ],
+      "id": "51c9ed79-6c2c-4015-9b7d-bdf4ca5c7f06",
+      "name": "Send a text message",
+      "webhookId": "83b95fa3-8bee-4cd6-90f7-c05f1a424515",
+      "credentials": {
+        "telegramApi": {
+          "id": "ioFWYj91MAra3TC1",
+          "name": "Lugia N8N"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.selectedPosts }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        240
+      ],
+      "id": "d12c0dce-d137-4bc0-b033-6aa6af39132b",
+      "name": "Create Tweet",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "ua4OsB5T1GokIStm",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "857042530",
+        "message": "={{ $execution.id }}",
+        "responseType": "customForm",
+        "defineForm": "json",
+        "jsonOutput": "=[\n  {\n    \"fieldLabel\": \"Checkboxes\",\n    \"fieldType\": \"checkbox\",\n    \"fieldOptions\": {\n      \"values\": \n{{ $('Edit Fields').all().map(item => ({ \"option\": item.json.output })) }}\n    }\n  }\n]\n",
+        "options": {
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 3
+            }
+          },
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1504,
+        -16
+      ],
+      "id": "c53359b7-dfa1-4dbc-8fda-4581f4365b14",
+      "name": "Send message and wait for response",
+      "webhookId": "b226a90f-2581-4905-ac2a-059ce8c6c961",
+      "credentials": {
+        "telegramApi": {
+          "id": "ioFWYj91MAra3TC1",
+          "name": "Lugia N8N"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "af4e03c9-785c-4ae7-a973-86210d4b9a44",
+              "leftValue": "={{ $json.createdAt }}",
+              "rightValue": "={{ new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            },
+            {
+              "id": "3b33c1f3-fb13-4b0d-bafb-ac13f852456b",
+              "leftValue": "={{ $json.updatedAt }}",
+              "rightValue": "={{ new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        -416
+      ],
+      "id": "5ff0f7a5-e242-42b6-a6ad-6628d15a2277",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet selectedPosts = []\nfor (const item of $input.all()) {\n  selectedPosts = [...selectedPosts, ...Object.values(item.json.data.Checkboxes)]\n}\n\nreturn { selectedPosts: selectedPosts };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        240
+      ],
+      "id": "241189b5-9176-4580-a6c0-6d7bc9ad5219",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "selectedPosts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        944,
+        240
+      ],
+      "id": "b843eeaf-a684-4ab6-85d6-8c055d32dc9f",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet selectedMessages = []\nfor (const item of $input.all()) {\n  selectedMessages = [...selectedMessages, ...item.json.data.Checkboxes]\n}\n\nconst messages = $('Send a text message').all()\n  .map(item => ({ \n    chat: item.json.result.chat.id,\n    messageId: item.json.result.message_id,\n    message: item.json.result.text\n  }))\n\nconst messagesToDelete = []\n\nfor (const message of messages) {\n  let found = false\n  for (const selected of selectedMessages) {\n    if (message.message.includes(selected)) {\n      found = true\n      continue\n    }\n  }\n\n  if (!found) {\n    messagesToDelete.push(message)\n  }\n}\n\n\nreturn { messagesToDelete }\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        416
+      ],
+      "id": "7f56e3da-5831-4cba-be79-bca32ef1da8f",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2d86b969-6ecb-4b92-93e9-af4bf687ecc1",
+              "leftValue": "={{ $json.relevanceScore }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "6aadd334-ff31-4ff8-a9bf-824d17601f39",
+              "leftValue": "={{ $json._highlightResult }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "375be409-94d2-42b0-ae74-a43c37907cdb",
+              "leftValue": "={{ $json.title }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        -416
+      ],
+      "id": "48b6a12c-8ff1-4ee5-b747-4af078942195",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "operation": "deleteMessage",
+        "chatId": "={{ $json.messagesToDelete[0].chat }}",
+        "messageId": "={{ $json.messagesToDelete[0].messageId }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        416
+      ],
+      "id": "6906be17-6855-4edd-b7b6-23682106ccbb",
+      "name": "Delete a chat message",
+      "webhookId": "47687690-d6ad-40cb-972d-cfedf6c34aa7",
+      "credentials": {
+        "telegramApi": {
+          "id": "ioFWYj91MAra3TC1",
+          "name": "Lugia N8N"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1440,
+        272
+      ],
+      "id": "20f977c2-9cb6-4fc4-b8dd-1a3f8be7ef20",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json._highlightResult.comment_text.value }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.story_title }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.story_url }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.created_at }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.updated_at }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "hackernews",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        432
+      ],
+      "id": "d493d42a-3e24-42c2-a8b2-19ade0a81af1",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "url": "https://blog.pragmaticengineer.com/rss/",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -864,
+        288
+      ],
+      "id": "bd6ef77b-72e1-46b3-9575-997381112f34",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        288
+      ],
+      "id": "b4034689-e320-4ffd-be48-6efc7c5d2466",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rss.channel.item",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        288
+      ],
+      "id": "46f0baa3-8946-4465-878e-1623a8c59ec0",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "pragmaticengineer",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        288
+      ],
+      "id": "2b4b8703-ad09-45a6-9b9f-a1f005719f8a",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "numberInputs": 7
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -64,
+        -192
+      ],
+      "id": "7fe95368-3c65-458a-b136-218d46d4b834",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "url": "https://engineering.fb.com/feed/",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -848,
+        128
+      ],
+      "id": "3843d733-2213-4ede-b811-907a20345f20",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        128
+      ],
+      "id": "dedac1c3-f315-471f-9aaa-acbc98b5a677",
+      "name": "XML1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rss.channel.item",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        128
+      ],
+      "id": "aa51cdd6-532d-407a-9268-61be183b97ce",
+      "name": "Split Out3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "fb",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        128
+      ],
+      "id": "a97cf05d-8e4c-4390-8f9a-46a8e8538a48",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "url": "https://github.blog/engineering.atom",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -848,
+        -32
+      ],
+      "id": "1b1c29d1-ab8f-4e77-9856-000f38db60cc",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -32
+      ],
+      "id": "68b3da26-60ac-4aab-be16-63d6f1350949",
+      "name": "XML2"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "feed.entry",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -32
+      ],
+      "id": "423c5d5e-0682-476c-8f3d-c8eefa8e6c5c",
+      "name": "Split Out4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.summary._ }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title._ }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link.href }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.published }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.updated }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "github",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        -32
+      ],
+      "id": "836fb121-be33-42c6-9e1d-594e4fe14e19",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "url": "https://www.theverge.com/rss/index.xml",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -848,
+        -208
+      ],
+      "id": "11238a77-7f37-419f-afc0-6605214bde46",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -208
+      ],
+      "id": "f47d9e08-c1db-4b0a-a19d-db8d1919ae0b",
+      "name": "XML3"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "feed.entry",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -208
+      ],
+      "id": "ac645c53-ce88-4971-8864-3b5fd470fbbb",
+      "name": "Split Out5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.summary._ }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title._ }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link.href }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.published }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.updated }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "theverge",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        -208
+      ],
+      "id": "1cb1840d-c4e7-4181-9991-61d67e901276",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "url": "https://techcrunch.com/feed/",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -848,
+        -384
+      ],
+      "id": "d81fd437-dd6d-4b45-b992-6f359144d583",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -384
+      ],
+      "id": "866428cc-105e-40af-af08-41560e9c7853",
+      "name": "XML4"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rss.channel.item",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -384
+      ],
+      "id": "0240c3d4-9e6c-473d-a288-687f68fd59b8",
+      "name": "Split Out6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "techcrunch",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        -384
+      ],
+      "id": "a52b8fbe-eb0f-4a0e-b0d1-a67a9b11d308",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "url": "https://www.wired.com/feed/tag/ai/latest/rss",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "xml"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -848,
+        -560
+      ],
+      "id": "d59fb0b8-79cc-4db6-bd72-f97f70a6e68b",
+      "name": "HTTP Request5"
+    },
+    {
+      "parameters": {
+        "dataPropertyName": "=xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -560
+      ],
+      "id": "4c7a4e0a-ecdc-4555-9ff3-d43e4fcdd06b",
+      "name": "XML5"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "rss.channel.item",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -560
+      ],
+      "id": "8e07afaa-a375-4ce1-8158-6248c23f86ad",
+      "name": "Split Out7"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41eec342-853e-45d1-9486-d9402dd43efa",
+              "name": "content",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "0824e85a-3a3c-4528-8e98-b53336041279",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "31d687a1-b404-4f22-ab5d-760b754b9641",
+              "name": "url",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            },
+            {
+              "id": "6066d892-aaef-475a-a750-af884d1a5933",
+              "name": "createdAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "56e81674-4f90-4266-9a8a-593173681fbc",
+              "name": "updatedAt",
+              "value": "={{ $json.pubDate }}",
+              "type": "string"
+            },
+            {
+              "id": "f7999959-4b2a-4788-84c8-c96828678709",
+              "name": "source",
+              "value": "wired",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        -560
+      ],
+      "id": "0038940d-2af2-4c3f-9a89-1ce52c5a148d",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "createdAt",
+              "order": "descending"
+            },
+            {
+              "fieldName": "updatedAt",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        304,
+        -416
+      ],
+      "id": "aefe489b-5c53-4ef6-ae2b-ad8f30c0624c",
+      "name": "Sort1"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"title\": \"string\",\n    \"url\": \"string\",\n    \"relevanceScore\": 1,\n    \"hashtags\": [\"string\"],\n    \"contentType\": \"caption|comment|question|opinion|risk|hot_take\",\n    \"captions\": {\n      \"x\": \"string\",\n      \"threads\": \"string\"\n    }\n  }\n]\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        0
+      ],
+      "id": "8ecceba8-965a-4598-a41a-d890a25db34f",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "let items = [];\n\nfor (const item of $input.all()) {\n  // Step 1: get the text\n  let text = item.json.text || \"\";\n\n  // Step 2: remove code fences if present\n  const jsonString = text\n    .replace(/```json/i, \"\")\n    .replace(/```/g, \"\")\n    .trim();\n\n  // Step 3: parse safely\n  try {\n    const parsed = JSON.parse(jsonString);\n    items = [...items, ...parsed];\n  } catch (err) {\n    console.error(\"Failed to parse JSON:\", err, \"\\nInput was:\\n\", jsonString);\n  }\n}\n\nreturn {items};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -176
+      ],
+      "id": "666d4bcf-5375-40c6-9862-59ff3b8b918c",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        848,
+        -176
+      ],
+      "id": "9ba0d117-ccf2-48f4-ba77-2cc537dd6f13",
+      "name": "Split Out8"
+    },
+    {
+      "parameters": {
+        "batchSize": 20,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        704,
+        -416
+      ],
+      "id": "aeb885e1-4f56-4401-8654-1070b5062b0c",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        912,
+        -208
+      ],
+      "id": "24725cab-2856-4309-8ead-bbebabd3dd29"
+    }
+  ],
+  "pinData": {
+    "Code in JavaScript2": [
+      {
+        "json": {
+          "items": [
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#Intel",
+                "#SambaNova",
+                "#AIChips",
+                "#Acquisition"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel acquiring SambaNova. Another swing at AI hardware market share. The RDU architecture is interesting, but Intel's execution is key.",
+                "threads": "Intel's move on SambaNova is a bet on specialized AI hardware, specifically their reconfigurable dataflow units. This could be a legitimate differentiator if integrated well, or another expensive acquisition that struggles to scale within Intel's existing structure. The AI accelerator race is far from over, and Intel needs a win here."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#OpenAI",
+                "#BusinessStrategy",
+                "#AIIndustry",
+                "#Revenue"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring a Slack CEO as CRO. Clear signal: the research era is transitioning to serious enterprise revenue focus.",
+                "threads": "OpenAI bringing in a seasoned CEO like Denise Dresser as CRO shows they are serious about enterprise penetration and monetization. This isn't just about API access anymore; it's about building out a full sales and solutions arm to capture significant market share beyond developer-centric growth. The business model is solidifying."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#OpenAI",
+                "#AIEthics",
+                "#ResearchIntegrity",
+                "#AIAdvocacy"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits, citing AI advocacy over objective economic research. Conflict of interest at core of AI development.",
+                "threads": "An OpenAI staffer alleging the company suppresses research on AI's negative impacts highlights a critical risk. When the incentives for development and commercialization outweigh transparent, critical analysis, we risk repeating past tech ethics failures. \"Open\"AI faces a major challenge in maintaining trust and objectivity."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIAgents",
+                "#OpenStandards",
+                "#Interoperability",
+                "#AICollaboration"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block creating AI agent standards. Smart move. Fragmentation would kill agent adoption before it starts.",
+                "threads": "Major players like OpenAI and Anthropic collaborating on AI agent standards is a necessary step. Without open, agreed-upon protocols for agent communication and interaction, we risk a heavily fragmented and incompatible agent ecosystem. This kind of foundational work is critical for long-term scalability and utility."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#iFixit",
+                "#FixBot",
+                "#MultimodalAI",
+                "#PracticalAI"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot uses vision AI for repair guidance. This is the practical multimodal AI application we need.",
+                "threads": "iFixit integrating a multimodal chatbot, FixBot, that uses camera input for repair guidance is a prime example of AI delivering concrete utility. This isn't just about generative text; it's about leveraging AI for visual problem-solving and empowering users to fix their own gear. A genuinely useful application."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#BitcoinMining",
+                "#AIDataCenters",
+                "#MarketShift",
+                "#ComputeInfrastructure"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI data centers. A textbook example of infrastructure reuse driven by market demand shifts.",
+                "threads": "The shift of large-scale Bitcoin mining operations to AI data centers is a clear indicator of market dynamics and the insatiable demand for GPU compute. The infrastructure and power considerations are already in place, making the pivot a logical, albeit complex, capital reallocation. This trend is likely to accelerate, transforming industrial areas."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#GPT5",
+                "#OpenAI",
+                "#LLMs",
+                "#AITech"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "GPT-5.2 dropping amid \"Code Red.\" OpenAI is feeling the heat from competitors. The LLM race is intense.",
+                "threads": "OpenAI launching GPT-5.2 under a reported \"Code Red\" speaks volumes about the current state of the LLM market. This isn't a relaxed release; it's a direct response to escalating competition, particularly from Google's Gemini. The pace of innovation and pressure to deliver \"best-in-class\" is relentless."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#AICopyright",
+                "#Disney",
+                "#OpenAI",
+                "#ContentLicensing"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney-OpenAI deal. A blueprint for AI content licensing. This changes the copyright game from lawsuits to partnerships.",
+                "threads": "The Disney-OpenAI deal is a pivotal moment in the AI copyright debate. It signals a shift from adversarial litigation to commercial partnerships, potentially establishing a new model for content licensing in the age of generative AI. This provides a clear path for large content owners to monetize their data rather than simply fight its use. It clears the path for tools like Sora."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#AICoding",
+                "#DesignTools",
+                "#NoCode",
+                "#DevTools"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Cursor offering AI coding tools for designers. Blurring the lines between design and code. Empowering a new creator class.",
+                "threads": "Cursor's focus on AI coding tools for designers is a smart play. It acknowledges the increasing overlap between design and front-end development, enabling designers to translate concepts directly into functional code. This could significantly accelerate prototyping and reduce friction in product development workflows, expanding the reach of AI-assisted coding beyond traditional engineering."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#AIRegulation",
+                "#ExecutiveOrder",
+                "#TechPolicy",
+                "#Federalism"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Federal order threatens states over AI laws. Centralizing AI regulation means less experimentation, more top-down control.",
+                "threads": "An executive order threatening states over AI legislation represents a significant federal push for regulatory preemption. While it might streamline compliance for companies operating nationally, it risks stifling innovative state-level approaches to AI governance. Centralized control in rapidly evolving tech can be a double-edged sword, slowing down necessary adaptation."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIChips",
+                "Intel",
+                "SambaNova",
+                "Acquisition"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel buying SambaNova. Another AI chip play. Shows they're serious, but the market gap is huge. Execution is everything.",
+                "threads": "Intel's term sheet with SambaNova for AI chips is a move to catch up. The market for AI silicon is brutal. Acquisitions like this often look good on paper, but integrating and executing against Nvidia's lead is a different beast. It's a race for relevance."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "OpenAI",
+                "CRO",
+                "EnterpriseAI",
+                "Monetization"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring Slack's CEO as CRO. Clear signal: the research phase is over. Time to monetize.",
+                "threads": "OpenAI bringing in Slack's CEO as Chief Revenue Officer is a strong move. It screams \"enterprise sales\" and scaling revenue operations. This isn't just about iterating on models anymore; it's about capturing market share. The commercialization push is real."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "OpenAI",
+                "AIEthics",
+                "Transparency",
+                "ResearchBias"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits, alleges AI advocacy over balanced research. This erodes trust.",
+                "threads": "A staffer quitting OpenAI over alleged suppression of negative AI impact research is a serious red flag. If economic research is becoming advocacy, it undermines the credibility of any claims about AI's societal effects. Transparency is paramount when building such powerful tech."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "Standards",
+                "OpenAI",
+                "Anthropic"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block on AI agent standards. Essential, but defining \"play nice\" will be contentious.",
+                "threads": "Industry giants OpenAI, Anthropic, and Block teaming up on AI agent standards is a critical move. Agentic software is the next frontier. Establishing open standards early can prevent fragmentation, but the devil is always in the details. Who controls the spec, and will it truly be open?"
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AI",
+                "iFixit",
+                "MultimodalAI",
+                "PracticalAI"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot uses AI to guide repairs. This is exactly what practical multimodal AI should do.",
+                "threads": "iFixit's FixBot is a smart use of AI. Guiding repairs with a chatbot and camera input shows the immediate, practical value of multimodal models. This isn't theoretical; it's solving a real problem for users. Good example of focused AI application."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIInfrastructure",
+                "BitcoinMining",
+                "Compute",
+                "DataCenters"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI. Obvious move for capital-intensive compute infrastructure.",
+                "threads": "Bitcoin miners converting their data centers to AI factories is a pragmatic response to market conditions. The underlying compute infrastructure is similar. High power, specialized hardware. A direct example of how economic incentives drive resource reallocation in tech. The GPUs were always hungry."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "OpenAI",
+                "GPT5",
+                "LLM",
+                "AIPressure"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "GPT-5.2 drops amidst OpenAI \"Code Red.\" The LLM race is pure chaos now.",
+                "threads": "OpenAI launching GPT-5.2 while reportedly in \"Code Red\" due to competition (Gemini) shows the frantic pace of the LLM space. These aren't minor updates; they're major architectural pushes under immense pressure. Expect performance leaps, but also potentially more rushed releases. Buckle up."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AICopyright",
+                "OpenAI",
+                "Disney",
+                "GenerativeAI"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney-OpenAI deal: license over litigate. The AI copyright war just got a new playbook.",
+                "threads": "The Disney-OpenAI deal is a huge turning point. Instead of endless copyright battles, we're seeing major content owners license their data for AI training. This sets a precedent, moving from infringement claims to negotiated access. It's a pragmatic path forward for generative AI and creative industries."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AICode",
+                "DesignTools",
+                "Figma",
+                "DevTools"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Cursor's AI coding for designers. Abstraction for non-devs. Bridging design/dev gap is key.",
+                "threads": "Cursor launching AI coding tools for designers, integrated with Figma, is an interesting play. It aims to abstract away traditional coding, enabling designers to ship more directly. The challenge is ensuring the generated code is maintainable and scalable. It could redefine design-to-dev workflows."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIRegulation",
+                "Policy",
+                "Federalism",
+                "TechLaw"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump's EO threatens states over AI laws. Federal preemption or regulatory chaos?",
+                "threads": "Trump's executive order threatening states over \"onerous\" AI laws injects significant uncertainty into regulation. This move aims for federal preemption but risks creating a regulatory vacuum or stifling crucial local innovation. Navigating AI governance requires nuanced approaches, not blanket threats."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "IntelAI",
+                "ChipAcquisition",
+                "AIHardware"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel moving on SambaNova is a clear sign they are still playing catch-up in AI silicon. This is about IP and talent grab, not a sudden market shift.",
+                "threads": "Intel's reported acquisition of SambaNova highlights their ongoing challenge in the AI silicon race. It feels like an aggressive move to shore up IP and talent, rather than a singular breakthrough. The real test will be how effectively they integrate SambaNova's architecture into their broader strategy and existing software stack. Acquiring tech is one thing, making it shine within a behemoth is another."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "OpenAI",
+                "EnterpriseAI",
+                "CRO"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring Slack's CEO as CRO signals their full pivot to enterprise revenue. The research-first days are definitely over.",
+                "threads": "OpenAI bringing in Slack's CEO as CRO is a definitive statement: they're laser-focused on enterprise revenue. This marks a significant shift from a research-centric organization to a sales-driven machine. Scaling B2B AI products brings unique challenges, especially integrating robust, reliable solutions into existing complex enterprise workflows. It's a tough transition for any org."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIEthics",
+                "OpenAI",
+                "ResearchIntegrity"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "If OpenAI's economic research won't publish negative AI impacts, it's not research; it's just PR. Blatant conflict of interest.",
+                "threads": "A staffer quitting OpenAI over alleged AI advocacy in economic research is concerning. If a company's internal research team hesitates to publish findings that show negative impacts, it compromises the integrity of their work. This isn't just about jobs; it's about the credibility of AI development and the transparency needed to address its societal implications. Objectivity should not be negotiable."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "Standards",
+                "Interoperability"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Major AI players pushing for agent standards. Crucial for interoperability, but standardizing emergent tech is a big lift.",
+                "threads": "OpenAI, Anthropic, and Block collaborating on AI agent standards is a necessary move. The proliferation of agentic software demands interoperability to avoid fragmented ecosystems. However, standardizing an emergent and rapidly evolving technology like AI agents is inherently complex. The challenge will be creating frameworks that are robust enough for broad adoption yet flexible enough to not stifle innovation. This is key for enterprise adoption."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AIUtility",
+                "MultimodalAI",
+                "iFixit"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "iFixit's FixBot is a genuine use case for multimodal AI. Simple, direct value, augmenting existing expertise. Less hype, more utility.",
+                "threads": "iFixit's FixBot, integrating a chatbot repair expert with camera input, is a great example of practical AI application. This kind of multimodal interface truly augments user capability, providing direct, actionable advice. It's less about grand, abstract AI claims and more about solving a concrete problem effectively. This is where AI delivers tangible value: democratizing specialized knowledge and empowering users to fix their own gear."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIInfrastructure",
+                "BitcoinMining",
+                "Compute"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI compute. Same hardware, different speculative bubble. Smart reuse of infrastructure.",
+                "threads": "The pivot of major Bitcoin miners to AI data centers is a compelling infrastructure story. Facing profitability challenges, repurposing massive compute facilities for AI is a logical, albeit opportunistic, move. It underscores the immense energy demands of both industries and the reusability of specialized hardware. The underlying economics for large-scale compute remains volatile, but this shift is a clear sign of where capital and resources are flowing in the tech world."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "GPT5",
+                "OpenAI",
+                "AITech"
+              ],
+              "contentType": "question",
+              "captions": {
+                "x": "OpenAI drops GPT-5.2 amidst a 'code red'. Is this a fundamental leap, or an optimization push under competitive pressure?",
+                "threads": "OpenAI launching GPT-5.2 while reportedly in a 'code red' status against competitors like Google's Gemini raises questions. Is this a truly foundational leap in capability, or primarily an optimization and refinement push to maintain market perception? The pace of LLM development is relentless, and internal pressures often drive release cycles. Real-world benchmarks and practical applications will truly reveal its impact, beyond the marketing."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AICopyright",
+                "Licensing",
+                "GenerativeAI"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney licensing content to OpenAI: the blueprint for monetizing training data. The IP battles just got a path forward.",
+                "threads": "The Disney-OpenAI deal is a pivotal moment in the AI copyright debate. It signals a shift from purely adversarial legal battles to a licensing model for content used in AI training. This isn't about stopping AI; it's about monetizing the vast datasets required. It sets a precedent for how major content holders can engage with generative AI, providing a potential blueprint for future agreements and reshaping the economics of creative industries."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AICoding",
+                "DesignTools",
+                "DevTools"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "AI coding tools for designers with Figma integration. Bridging the design-to-dev gap is critical for rapid prototyping.",
+                "threads": "Cursor's move to launch an AI coding tool specifically for designers, with Figma integration, is a smart play. The gap between design and development workflows remains a major bottleneck. Tools that enable designers to translate their vision into functional code with AI assistance can significantly accelerate prototyping and iteration cycles. This democratizes code generation and moves us closer to a more integrated, efficient product development pipeline."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "AIRegulation",
+                "FederalPower",
+                "TechPolicy"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Federal EO threatening states over AI laws is heavy-handed. Weaponizing broadband funding sets a troubling precedent.",
+                "threads": "A federal executive order threatening states over AI laws, specifically by leveraging broadband funding, introduces significant regulatory risk and sets a troubling precedent. While national consistency in AI policy might be desirable, using such coercive tactics can lead to resentment and legal challenges. The tech industry requires clear, stable regulatory frameworks, not political arm-twisting that could fragment development or stifle innovation based on local political climate."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#AIChips",
+                "#Intel",
+                "#SambaNova",
+                "#HardwareAI"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel buying SambaNova. Playing catch-up in AI silicon or a strategic land grab? Nvidia's lead won't be easily overcome.",
+                "threads": "Intel's move on SambaNova is a clear signal: the AI chip race is far from over. This isn't just about market share; it's about architectural paradigms. Can a legacy giant truly integrate and innovate fast enough in this rapidly evolving space? The real battle is yet to begin."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#OpenAI",
+                "#CRO",
+                "#AIStrategy",
+                "#Monetization"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI brings in Slack's CEO as CRO. Clear sign: research is giving way to serious enterprise monetization.",
+                "threads": "OpenAI hiring a CRO from Slack isn't just a personnel change; it's a strategic pivot. The era of 'research lab first' is over. Expect an aggressive push into enterprise solutions and a focus on revenue numbers. The commercialization of AI accelerates."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#AIEthics",
+                "#OpenAI",
+                "#AIImpact",
+                "#Transparency"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits over 'AI advocacy.' Suppressing research on AI's negative impact is a dangerous path.",
+                "threads": "An OpenAI staffer alleging the company suppresses research on AI's negative economic impacts, like job displacement, is deeply concerning. If even internal research is censored for public perception, how can we trust objective assessments of AI's societal risks? Transparency is critical."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIAgents",
+                "#Standards",
+                "#Interoperability",
+                "#AIInfrastructure"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block creating AI agent standards. Essential for interoperability and safe agentic AI.",
+                "threads": "Industry leaders forming standards for AI agents is a proactive move. Without shared protocols, the agentic AI landscape risks fragmentation and security vulnerabilities. This is a foundational step for building robust, interoperable autonomous systems that don't devolve into chaotic digital warfare."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "#LLM",
+                "#AIApplications",
+                "#iFixit",
+                "#TechRepair"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot uses AI for repairs. Practical LLM application, democratizing technical knowledge.",
+                "threads": "iFixit's FixBot is a smart application of LLMs. Moving past generic chatbots to specific, actionable repair guidance, even with camera input. This truly democratizes access to technical knowledge, empowering users to fix their own gear. A real-world win for practical AI."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIInfrastructure",
+                "#BitcoinMining",
+                "#Compute",
+                "#DataCenters"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI. Stranded compute finding a new home. Peak efficiency, or just chasing the next gold rush?",
+                "threads": "The pivot of large-scale Bitcoin miners to AI data centers is fascinating. It's a textbook example of infrastructure arbitrage. Excess compute capacity, specialized power infrastructure: perfect for AI training. This isn't just a trend; it's a recalibration of industrial-scale compute allocation based on market demand. The infrastructure was always the valuable asset."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#OpenAI",
+                "#GPT5",
+                "#AIArena",
+                "#LLMRace"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "OpenAI's GPT-5.2 launch amidst 'Code Red' shows intense pressure. Google's Gemini is clearly a threat.",
+                "threads": "OpenAI launching GPT-5.2 while reportedly in 'Code Red' speaks volumes about the AI race. Google's Gemini clearly hit a nerve. This isn't just feature parity; it's a battle for mindshare, developer ecosystems, and the future of foundational models. The pressure on these teams must be immense."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#AICopyright",
+                "#OpenAI",
+                "#Disney",
+                "#IPLaw"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Disney-OpenAI deal sets a copyright precedent. Content owners will now demand a piece of the AI pie.",
+                "threads": "The Disney-OpenAI deal is a massive turning point. It's not just about licensing; it's a blueprint for the future of IP in the age of generative AI. Expect every major content owner to follow suit, demanding revenue share. This deal could either unlock massive creative potential or consolidate power, depending on the terms. The AI copyright war just got a new battleground."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "#AICoding",
+                "#DesignTools",
+                "#DevTools",
+                "#Frontend"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Cursor's AI coding tool for designers. Blurring the lines between design and dev.",
+                "threads": "Cursor targeting designers with AI coding tools is a smart play. The gap between design intent and functional code has always been a friction point. If AI can bridge that, empowering designers to generate frontend components or even basic logic, it fundamentally shifts team workflows. Expect more tools blurring these traditionally separate roles."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIRegulation",
+                "#TechPolicy",
+                "#Federalism",
+                "#AILaws"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump EO threatens states over AI laws. Creates regulatory chaos, stifling innovation or preventing necessary guardrails?",
+                "threads": "An executive order threatening states for passing their own AI laws is a direct challenge to federalism. This creates immense regulatory uncertainty, potentially stifling state-level innovation or, conversely, preventing necessary localized guardrails. Expect legal battles and a fragmented regulatory landscape, making AI deployment a jurisdictional minefield."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIChips",
+                "Intel",
+                "SambaNova",
+                "Hardware"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Intel acquiring SambaNova. A clear signal Intel is serious about reclaiming AI accelerator market share.",
+                "threads": "Intel's move on SambaNova is a direct play to bolster its AI hardware portfolio. This isn't just about silicon; it's about IP and talent in a fiercely competitive space where GPU dominance is being challenged. A smart, necessary chess move."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "OpenAI",
+                "CRO",
+                "AIStrategy",
+                "Commercialization"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring Slack CEO as CRO. Signals a major shift: commercialization over pure research. The enterprise push is on.",
+                "threads": "The hiring of Slack's CEO as OpenAI's CRO is a telling move. It unequivocally signals a pivot from research dominance to aggressive commercial scaling and enterprise adoption. Expect to see their go to market strategies mature rapidly."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIEthics",
+                "OpenAI",
+                "ResearchIntegrity",
+                "BiasInAI"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits, alleging AI advocacy over objective research. Credibility risk if impact studies are skewed.",
+                "threads": "A staffer departing OpenAI over alleged AI advocacy in economic research highlights a crucial risk. If companies leading AI development can't maintain impartiality in assessing societal impact, we lose vital objective analysis. This undermines trust in their outputs and internal research integrity."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "OpenStandards",
+                "Interoperability",
+                "AIInfrastructure"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block uniting for AI agent standards. Necessary for interoperability, safety, and agentic software growth.",
+                "threads": "The collaboration between OpenAI, Anthropic, and Block on AI agent standards is critical. Without a common framework, the agentic future risks fragmentation and security vulnerabilities. This push for open standards is proactive, preventing a proprietary lock-in nightmare early on."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AIApplications",
+                "LLMs",
+                "iFixit",
+                "DIY"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot uses AI for device repair. Practical LLM application, augmenting DIY with expert knowledge.",
+                "threads": "iFixit's new FixBot app leveraging AI for device repair is a smart move. It demonstrates how LLMs can practically augment existing expertise, making complex tasks more accessible. This is where AI's real utility lies: empowering users, not replacing them entirely."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIInfrastructure",
+                "BitcoinMining",
+                "Compute",
+                "DataCenters"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI data centers. A practical pivot: repurposed infra, massive power, demand for compute.",
+                "threads": "Bitcoin miners converting their facilities into AI data centers is a fascinating and logical pivot. They have the critical infrastructure: cheap power, cooling, and space. The compute demand for AI training and inference is insatiable, making this a highly efficient reuse of assets facing declining crypto profitability."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "OpenAI",
+                "GPT5",
+                "AIBattle",
+                "LLMs"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "GPT-5.2 is out. \"Code Red\" status confirms the AI race is not just real, it's escalating. Expect rapid iterations.",
+                "threads": "OpenAI launching GPT-5.2 amidst a reported \"Code Red\" situation against Google's Gemini confirms one thing: the AI race isn't slowing down; it's intensifying. This release isn't just an upgrade; it's a strategic move in an aggressive, high-stakes battle for LLM dominance. The velocity of innovation is staggering."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AICopyright",
+                "IntellectualProperty",
+                "OpenAI",
+                "ContentLicensing"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney-OpenAI deal. A major blueprint for AI licensing and copyright. This is how the IP wars end, or begin.",
+                "threads": "The Disney-OpenAI deal is a pivotal moment in the AI copyright debate. It's a pragmatic blueprint: big content owners get compensated, and AI developers gain legitimate training data access. This could either define a path forward for IP licensing or simply be the first skirmish in a much larger, more complex battle."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AICode",
+                "DesignTools",
+                "Figma",
+                "DeveloperTools"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Cursor's AI coding tool for designers. Bridging design-dev gap with AI, leveraging Figma ecosystem. Smart play.",
+                "threads": "Cursor targeting designers with AI coding tools, especially around Figma, is a smart play. It addresses a long-standing workflow friction point. Empowering designers to directly influence code generation could significantly accelerate front-end development cycles and improve design system adherence."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIRegulation",
+                "TechPolicy",
+                "ExecutiveOrder",
+                "StateVsFederal"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump EO threatens states over AI laws. Centralized AI regulation vs. fragmented innovation. Regulatory uncertainty ahead.",
+                "threads": "Trump's executive order threatening states over AI laws is a significant development. It signals a move towards federal preemption in AI regulation, potentially stifling diverse innovation or creating a monolithic regulatory environment. The threat of pulling broadband funding adds a serious dimension to this inter-state policy struggle."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIHardware",
+                "Intel",
+                "SambaNova",
+                "ChipWars"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel grabs SambaNova. They need AI muscle, but integrating niche hardware is a beast. Legacy vs. agility.",
+                "threads": "Intel's SambaNova play signals their desperation to compete in the AI chip race. Acquisitions are quick fixes, but merging architectures and cultures often slows more than it accelerates. Can they execute?"
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "OpenAI",
+                "BusinessStrategy",
+                "AIEconomics",
+                "CRO"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hires Slack CEO as CRO. Clear signal: commercialization is now top priority, not just research.",
+                "threads": "OpenAI bringing in Slack's CEO as CRO is a huge tell. The research-first days are fading. Expect aggressive monetization strategies and a push for enterprise adoption. It's about revenue now."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIEthics",
+                "OpenAI",
+                "ResearchIntegrity",
+                "BiasInAI"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits over alleged AI advocacy bias. Eroding trust in objective AI research.",
+                "threads": "An OpenAI staffer alleging a shift towards AI advocacy over objective economic research is concerning. When research becomes PR, trust erodes. This isn't just about jobs; it's about integrity of AI's societal impact studies."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "OpenStandards",
+                "Interoperability",
+                "AIInfrastructure"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block creating AI agent standards. Crucial for interoperability, preventing vendor lock-in.",
+                "threads": "Finally, a push for AI agent standards. OpenAI, Anthropic, and Block collaborating here is vital. Without open standards, agentic AI becomes a mess of walled gardens. This is fundamental infrastructure work."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIApplications",
+                "iFixit",
+                "LLMs",
+                "PracticalAI"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "iFixit's FixBot: niche AI solving real-world problems. Smart application of LLMs for practical repair.",
+                "threads": "iFixit's FixBot shows where AI is immediately valuable: specialized, practical tasks. Empowering users with repair knowledge through a chatbot is a clever application of LLMs, far from hypothetical."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIInfrastructure",
+                "BitcoinMining",
+                "ComputePower",
+                "Hardware"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI. Logical. High-power compute is high-power compute. Infrastructural shift.",
+                "threads": "Bitcoin miners swapping crypto for AI compute. It's a natural pivot. They already built the power-hungry data centers and acquired the GPUs. The market dictates where the raw compute power gets directed."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "GPT5",
+                "OpenAI",
+                "LLMs",
+                "AICompetition"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "GPT-5.2 drops amidst \"Code Red.\" It needs to be a quantum leap, not just iterative. The pressure is on.",
+                "threads": "OpenAI releasing GPT-5.2 under a \"Code Red\" suggests they're feeling the heat from competitors like Google's Gemini. It better be a significant jump in capability, not just incremental, to maintain their lead. The pace is relentless."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "AICopyright",
+                "Disney",
+                "OpenAI",
+                "IPLicensing"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney-OpenAI deal: this is the blueprint. Licensing IP for AI training avoids litigation, creates new models.",
+                "threads": "The Disney-OpenAI deal isn't just a truce; it's a template. Instead of endless copyright battles, IP holders will license. Disney plays it smart, enabling Sora's path while securing revenue. This redefines AI content strategy."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AICoding",
+                "DesignTools",
+                "LowCode",
+                "Cursor"
+              ],
+              "contentType": "question",
+              "captions": {
+                "x": "AI coding for designers by Cursor. Is this true coding or advanced visual prompt engineering? The line blurs.",
+                "threads": "Cursor's AI coding tool for designers is interesting. But does it truly empower designers to \"code\" or is it a more sophisticated form of visual prompt engineering? Defining the boundary between \"coding\" and \"directing AI\" is becoming harder."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AILaw",
+                "Policy",
+                "Regulation",
+                "FederalVsState"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump's EO targets state AI laws. Federal preemption risks regulatory vacuums or stifled innovation.",
+                "threads": "Trump's executive order threatening states over AI laws is a risky move. Federal preemption might create a regulatory void or, worse, stifle localized innovation and safety measures. A top-down approach rarely fits evolving tech."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIHardware",
+                "Intel",
+                "SambaNova",
+                "ChipDesign"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel's SambaNova play. Buying market share or integrating critical IP? Their AI silicon strategy needs a definitive win.",
+                "threads": "Intel's move on SambaNova is telling. Is this a strategic acquisition for their AI silicon roadmap, or a defensive play to buy market share and talent? SambaNova's dataflow architecture had promise. Will Intel integrate it effectively, or will it be another acquisition that gets assimilated and loses its edge? Hardware innovation is critical."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "OpenAI",
+                "AIStrategy",
+                "EnterpriseAI",
+                "Monetization"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring a CRO signals a clear shift: from research to serious revenue generation. The enterprise push is real.",
+                "threads": "OpenAI bringing in Slack's CEO as CRO is a definitive statement. The 'lab' era is over. This is about scaling revenue, productizing research, and tackling enterprise. Expect a significant push into business applications and monetization strategies. They need to turn all that compute into recurring revenue."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIEthics",
+                "OpenAI",
+                "AIResearch",
+                "Transparency"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI researcher quits over 'AI advocacy.' If internal economic research is suppressed, what other inconvenient truths are being overlooked?",
+                "threads": "A researcher quitting OpenAI over alleged suppression of negative AI impact research is a red flag. Transparency in AI development is paramount, especially from organizations shaping the future. If economic realities of job displacement or other societal costs are being downplayed for PR, that's not research, it's advocacy. Serious implications for trust and responsible AI."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "OpenStandards",
+                "Interoperability",
+                "AIArchitecture"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block pushing AI agent standards. Essential for interoperability, prevents walled gardens. Critical.",
+                "threads": "Collaboration on AI agent standards from OpenAI, Anthropic, and Block is a critical move. Without common protocols, agentic software will become a fragmented mess. We need interoperability to enable complex, multi-agent systems and prevent vendor lock-in. Establishing these early is key for healthy ecosystem growth, similar to web standards."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AIApplications",
+                "iFixit",
+                "MultimodalAI",
+                "PracticalAI"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot uses multimodal AI for device repair. This is a practical, powerful use case for expert knowledge.",
+                "threads": "iFixit launching FixBot with multimodal AI for guided repairs is a smart move. This isn't just a chatbot; it's leveraging vision and LLMs to democratize technical repair knowledge. A clear example of AI as an empowering tool, extending human capability rather than replacing it. Focuses on utility, not just novelty."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIDataCenters",
+                "BitcoinMining",
+                "ComputeInfrastructure",
+                "AIHardware"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI data centers is logical. Underutilized compute infrastructure finds a new, highly demanding home.",
+                "threads": "The pivot of large-scale Bitcoin miners to AI data centers makes perfect sense. They already have the land, the power infrastructure, and the cooling setups for massive compute. It's a pragmatic response to crypto's volatility and AI's insatiable demand for GPUs. Economic incentives drive infrastructure reuse, often in unexpected ways."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "OpenAI",
+                "GPT5",
+                "LLMs",
+                "AICompetition"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "OpenAI drops GPT-5.2 amid 'Code Red.' This frantic pace shows the intense LLM race. Real progress or more compute?",
+                "threads": "OpenAI launching GPT-5.2 during a reported 'Code Red' against Google's Gemini highlights the frantic, high-stakes LLM race. Is each iteration a significant leap in capabilities, or just another compute-heavy optimization? The pace is unsustainable without real architectural breakthroughs. It's less about AGI and more about market share right now."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "AICopyright",
+                "IntellectualProperty",
+                "GenerativeAI",
+                "LegalTech"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney-OpenAI deal: The copyright war morphs into a licensing economy. This sets a significant precedent for AI's content future.",
+                "threads": "The Disney-OpenAI deal is a pivotal moment, shifting the AI copyright 'war' towards a licensing framework. This isn't just about content; it's a blueprint for how large IP holders and generative AI developers can navigate a shared future. Expect this model to be replicated widely, defining data rights and compensation for training future models. The lawyers just got busy."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AICoding",
+                "DesignTools",
+                "DeveloperTools",
+                "NoCode"
+              ],
+              "contentType": "question",
+              "captions": {
+                "x": "Cursor's AI coding tool for designers. Does this empower designers or blur the lines between dev/design without clear boundaries?",
+                "threads": "Cursor releasing an AI coding tool for designers is intriguing. The goal is likely to empower designers to build more interactively, perhaps generate frontend code directly from mocks. But does this truly bridge the dev/design gap, or does it create new integration challenges if not managed well? Low-code/no-code tools with AI are changing roles."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AIRegulation",
+                "TechPolicy",
+                "FederalVsState",
+                "AIgovernance"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Federal EO threatens states over AI laws. Centralized control risks stifling localized innovation or creating regulatory vacuums.",
+                "threads": "A federal EO threatening states for passing their own AI laws is a concerning development. While regulatory fragmentation is an issue, blanket threats to defund broadband over 'onerous' AI legislation could stifle innovation or, worse, prevent necessary localized protections. Centralized control of a rapidly evolving tech like AI is a high-risk strategy."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "AIHardware",
+                "Intel",
+                "SambaNova",
+                "ChipDesign"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Intel moving on SambaNova. Another big bet on custom silicon for AI. Can it actually move the needle against NVIDIA?",
+                "threads": "Intel's term sheet with SambaNova is a clear signal: they're buying their way into advanced AI silicon. This isn't just about compute; it's about architecture and IP. NVIDIA's lead is immense; acquisitions are one path, but integration and execution remain the real challenge for Intel. A big bet, hoping custom IP fills gaps."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "OpenAI",
+                "AIStrategy",
+                "BusinessOfAI",
+                "CRO"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI brings in Slack CEO as CRO. Clear signal: the pure research era is ending. Time to monetize.",
+                "threads": "Hiring a Chief Revenue Officer from Slack indicates a definitive shift at OpenAI. The era of pure research and public good is giving way to serious commercialization and revenue targets. This move suggests they're ready to build robust sales funnels and scale enterprise adoption, which comes with new engineering and operational challenges."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "OpenAI",
+                "AIEthics",
+                "AIResearch",
+                "Transparency"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI staffer quits, alleging AI advocacy over honest research. If true, a serious credibility hit.",
+                "threads": "A former OpenAI staffer's claim of AI advocacy overshadowing objective economic research is highly concerning. If a company developing such impactful technology curates its findings, it undermines public trust and skews critical policy discussions. This poses a significant risk to responsible AI development and demands full transparency."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIAgents",
+                "Standards",
+                "Interoperability",
+                "OpenAI"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block join forces for AI agent standards. Interoperability is critical.",
+                "threads": "Major AI players like OpenAI, Anthropic, and Block collaborating on AI agent standards is a significant step. Without common protocols, the agentic future will be fragmented and inefficient. This effort could lay the groundwork for truly composable AI systems, accelerating both development and adoption. Essential for scaling a complex ecosystem."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 5,
+              "hashtags": [
+                "LLM",
+                "iFixit",
+                "AIApplications",
+                "PracticalAI"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot puts an AI repair expert in your hand. Practical LLM use case.",
+                "threads": "iFixit's FixBot is a smart application of conversational AI to a practical problem: device repair. Using a chatbot with camera integration for diagnostics and step-by-step guidance is a tangible example of LLMs moving beyond abstract chat into genuinely useful, everyday tools. Good iteration on leveraging existing repair data."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "AIInfrastructure",
+                "BitcoinMining",
+                "DataCenters",
+                "Compute"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI. Obvious move. Same racks, different silicon. Follow the power, follow the money.",
+                "threads": "Bitcoin miners turning into AI data centers is a hot take, but it's pure economics. They already have the core infrastructure: power distribution, cooling, and real estate. Swapping ASICs for GPUs is a capital investment, but the underlying utility setup is the truly hard part. It's a pragmatic pivot driven by profitability and immense AI compute demand."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "OpenAI",
+                "GPT5",
+                "LLMs",
+                "AICompetition"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI launches GPT-5.2 amidst 'Code Red'. The LLM arms race intensifies. Pressure is on.",
+                "threads": "OpenAI pushing out GPT-5.2 in a reported 'Code Red' scenario highlights the brutal competitive pressure from Google and others. This isn't just about incremental improvements; it's about defending market leadership and proving continued innovation under immense external and internal pressure. The pace of these releases is unsustainable for most."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "AICopyright",
+                "IntellectualProperty",
+                "OpenAI",
+                "Disney"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Disney and OpenAI's deal is a blueprint for IP licensing in AI. The copyright war just got a roadmap.",
+                "threads": "The Disney-OpenAI deal is a pivotal moment for AI copyright. This isn't merely a licensing agreement; it's a template for how major content owners will integrate with AI generators. It shifts the discussion from 'is it fair use?' to 'what's the licensing model?' and clears a path for legal, commercial utilization of AI-generated content. A significant precedent."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "AICoding",
+                "DesignTools",
+                "Figma",
+                "DeveloperTools"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "Cursor now offers AI coding for designers. Bridging the design-to-code gap with LLMs.",
+                "threads": "Cursor's move to target designers with AI coding tools is a smart play. The gap between design prototypes and production code often leads to significant friction. If AI can genuinely accelerate turning Figma designs into functional UI, it could empower designers and streamline front-end development workflows. Adoption hinges on fidelity and ease of use."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "AIRegulation",
+                "TechPolicy",
+                "ExecutiveOrder",
+                "StateVsFederal"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump's EO threatens states with \"onerous\" AI laws. Federalizing AI regulation is a risk to innovation.",
+                "threads": "Trump's executive order threatening states over AI laws is a high-stakes move. Federal preemption on AI regulation could either streamline development or stifle diverse, localized approaches. The risk of pulling broadband funding creates significant leverage, but it also signals potential for major legal and political battles over who truly controls the AI regulatory landscape."
+              }
+            },
+            {
+              "title": "Intel Takes Major Step in Plan to Acquire Chip Startup SambaNova",
+              "url": "https://www.wired.com/story/intel-signs-term-sheet-sambanova-ai/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIHardware",
+                "#Intel",
+                "#SambaNova",
+                "#ChipArchitecture"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "Intel grabbing SambaNova changes the AI silicon game. FPGAs and custom ASICs are Intel's future, not just x86.",
+                "threads": "Intel's move on SambaNova confirms AI compute is the new battleground. This isn't just a simple acquisition; it's about specialized architectures and programmable dataflow, a departure from traditional CPU dominance. They're buying innovation to compete with NVIDIA and custom cloud chips."
+              }
+            },
+            {
+              "title": "OpenAI Hires Slack CEO as New Chief Revenue Officer",
+              "url": "https://www.wired.com/story/slack-ceo-denise-dresser-joins-openai-chief-revenue-officer/",
+              "relevanceScore": 7,
+              "hashtags": [
+                "#OpenAI",
+                "#AIStrategy",
+                "#Monetization",
+                "#EnterpriseAI"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "OpenAI hiring Slack's CEO as CRO. The research lab era is over. It's revenue time.",
+                "threads": "OpenAI bringing in Slack's CEO for CRO signals a massive shift. They're moving past the research phase and into serious enterprise monetization. This means more mature products, sales cycles, and direct competition in the software market, not just model development."
+              }
+            },
+            {
+              "title": "OpenAI Staffer Quits, Alleging Company’s Economic Research Is Drifting Into AI Advocacy",
+              "url": "https://www.wired.com/story/openai-economic-research-team-ai-jobs/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#AIEthics",
+                "#OpenAI",
+                "#ResearchIntegrity",
+                "#AIImpact"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "OpenAI's alleged AI advocacy over objective research is a serious red flag. Public trust erodes when findings are selectively presented.",
+                "threads": "A staffer quitting OpenAI over alleged AI advocacy in economic research is concerning. When a leading AI org is accused of self-censoring negative findings, it undermines the very trust needed for responsible AI development. This isn't just PR; it's about scientific integrity and future regulation."
+              }
+            },
+            {
+              "title": "OpenAI, Anthropic, and Block Are Teaming Up to Make AI Agents Play Nice",
+              "url": "https://www.wired.com/story/openai-anthropic-and-block-are-teaming-up-on-ai-agent-standards/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIAgents",
+                "#OpenStandards",
+                "#Interoperability",
+                "#AICollaboration"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "OpenAI, Anthropic, Block pushing AI agent standards. Smart move. Wild West agents need protocols to talk.",
+                "threads": "OpenAI, Anthropic, and Block teaming up on AI agent standards is critical. Without open protocols, agentic AI becomes a fragmented mess of proprietary systems. This push for interoperability prevents vendor lock-in and fosters a true ecosystem, not just isolated silos. Good engineering demands it."
+              }
+            },
+            {
+              "title": "iFixit Put a Chatbot Repair Expert in an App",
+              "url": "https://www.wired.com/story/ifixit-chatbot-app-fixbot-point-your-camera-at-what-you-want-to-fix/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "#LLMApps",
+                "#PracticalAI",
+                "#iFixit",
+                "#TechRepair"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "iFixit's FixBot is a solid use case for LLMs: democratizing repair knowledge. Practical AI beats hype.",
+                "threads": "iFixit's FixBot app is a refreshing example of practical LLM application. Instead of chasing AGI, they're augmenting human capability for a tangible, everyday problem. This is how AI genuinely delivers value: by making expertise accessible and reducing friction in real-world tasks."
+              }
+            },
+            {
+              "title": "America’s Biggest Bitcoin Miners Are Pivoting to AI",
+              "url": "https://www.wired.com/story/bitcoin-miners-pivot-ai-data-centers/",
+              "relevanceScore": 8,
+              "hashtags": [
+                "#AIInfrastructure",
+                "#BitcoinMining",
+                "#ComputePower",
+                "#DataCenters"
+              ],
+              "contentType": "hot_take",
+              "captions": {
+                "x": "Bitcoin miners pivoting to AI compute. Of course. Same game, different algorithm. Power's power.",
+                "threads": "Bitcoin miners flipping their data centers to AI is pure economics. Massive power infrastructure, specialized cooling, HPC expertise. It was always about optimizing compute for profit. AI's insatiable demand for GPUs and energy means this transition is a no-brainer. The \"cloud\" is just privatized data centers."
+              }
+            },
+            {
+              "title": "OpenAI Launches GPT-5.2 as It Navigates ‘Code Red’",
+              "url": "https://www.wired.com/story/openai-gpt-launch-gemini-code-red/",
+              "relevanceScore": 9,
+              "hashtags": [
+                "#OpenAI",
+                "#GPT5",
+                "#AICompetition",
+                "#LLM"
+              ],
+              "contentType": "opinion",
+              "captions": {
+                "x": "OpenAI pushes GPT-5.2 amidst 'Code Red.' A new model release is not a strategy; it's a reaction to Google's pressure.",
+                "threads": "OpenAI launching GPT-5.2 during a reported 'Code Red' is less about innovation and more about competitive posturing against Google. Releasing \"the best model yet\" is table stakes. The real test is sustainable differentiation and robust safety, not just chasing metrics. This feels rushed, not strategic."
+              }
+            },
+            {
+              "title": "The Disney-OpenAI Deal Redefines the AI Copyright War",
+              "url": "https://www.wired.com/story/disney-and-openais-deal-is-a-major-turning-point/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "#AICopyright",
+                "#OpenAI",
+                "#Disney",
+                "#IPLaw"
+              ],
+              "contentType": "comment",
+              "captions": {
+                "x": "Disney-OpenAI deal. This sets the template for AI training data licensing. IP holders now have a blueprint for compensation.",
+                "threads": "The Disney-OpenAI deal is a game changer for AI copyright. It's the blueprint for how major IP holders will monetize their content for AI training, shifting from endless litigation to strategic partnership. This isn't just about Sora; it's about redefining value creation in the generative AI era. Every content producer will take note."
+              }
+            },
+            {
+              "title": "Cursor Launches an AI Coding Tool For Designers",
+              "url": "https://www.wired.com/story/cursor-launches-pro-design-tools-figma/",
+              "relevanceScore": 6,
+              "hashtags": [
+                "#AICoding",
+                "#DesignTools",
+                "#NoCodeAI",
+                "#DeveloperTools"
+              ],
+              "contentType": "caption",
+              "captions": {
+                "x": "Cursor's AI coding for designers. Low-code/no-code gets an LLM boost. Designers writing code is the next step.",
+                "threads": "Cursor launching an AI coding tool for designers is a logical step for expanding creator tools. It bridges the gap between design intent and implementation. This isn't about replacing developers, but empowering designers with more direct control over front end execution, potentially streamlining workflows significantly."
+              }
+            },
+            {
+              "title": "Trump Signs Executive Order That Threatens to Punish States for Passing AI Laws",
+              "url": "https://www.wired.com/story/trump-signs-executive-order-ai-state-laws/",
+              "relevanceScore": 10,
+              "hashtags": [
+                "#AIRegulation",
+                "#Federalism",
+                "#AIpolicy",
+                "#TechLaw"
+              ],
+              "contentType": "risk",
+              "captions": {
+                "x": "Trump's EO punishing states for AI laws creates regulatory chaos. Innovation thrives on clarity, not federal strong-arming.",
+                "threads": "Trump's executive order threatening states over AI laws is a recipe for regulatory gridlock and uncertainty. Centralized federal control could stifle localized innovation or prevent states from addressing unique concerns. This top-down approach risks creating a legal minefield for AI developers instead of a coherent framework."
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "repo_name": "server-configs",
+  "repo_owner": "sarathm09",
+  "repo_path": "n8n_backups/lugia",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-13T14:37:38.826Z",
+      "createdAt": "2025-12-13T14:37:38.826Z",
+      "role": "workflow:owner",
+      "workflowId": "ouMkeE388NBjyATc",
+      "projectId": "sF3cJTnf4ieuCDHa"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 7,
+  "updatedAt": "2025-12-13T14:49:17.000Z",
+  "versionId": "faaf0d2e-e6cf-4d25-8c26-2a37c2866f54"
+}
