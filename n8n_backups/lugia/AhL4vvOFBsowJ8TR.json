@@ -1,0 +1,33 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-12-15T07:42:25.474Z",
+  "id": "AhL4vvOFBsowJ8TR",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow",
+  "nodes": [],
+  "pinData": {},
+  "repo_name": "server-configs",
+  "repo_owner": "sarathm09",
+  "repo_path": "n8n_backups/lugia",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-12-15T07:42:25.477Z",
+      "createdAt": "2025-12-15T07:42:25.477Z",
+      "role": "workflow:owner",
+      "workflowId": "AhL4vvOFBsowJ8TR",
+      "projectId": "sF3cJTnf4ieuCDHa"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-15T07:42:25.474Z",
+  "versionId": "edf3634e-da1e-4ee1-98ff-48044ee027a3"
+}
